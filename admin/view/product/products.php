@@ -7,8 +7,8 @@
     }
 
     .table thead {
-        background-color: #4e73df;
-        color: white;
+        /* background-color: #4e73df; */
+        color: rgb(60, 102, 215);
     }
 
     .table tbody tr:hover {
@@ -28,7 +28,7 @@
 
 <div class="table-container">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Quản lý sản phẩm</h3>
+        <h3 style="color: rgb(60, 102, 215);">Quản lý sản phẩm</h3>
         <button class="btn btn-success"><i class="fas fa-plus"></i> Thêm</button>
     </div>
     <div class="table-responsive">
