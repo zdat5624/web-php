@@ -1,0 +1,30 @@
+# Thư mục và file hệ thống
+/vendor/
+node_modules/
+.env
+.DS_Store
+Thumbs.db
+
+# File cache và log
+storage/logs/
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+
+# File cấu hình và nhạy cảm
+*.env
+*.log
+*.sqlite
+config.php
+database.php
+
+# Composer và NPM
+composer.lock
+package-lock.json
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
