@@ -16,19 +16,26 @@ if (!isset($_GET['pg'])) {
     include "view/home.php";
 } else {
     switch ($_GET['pg']) {
+
+        /* Controller user */
         case 'users':
 
             include "view/user/users.php";
             break;
+
+        /* Controller category */
         case 'categories':
 
             include "view/category/categories.php";
             break;
+
+        /* Controller brand */
         case 'brands':
 
             include "view/brand/brands.php";
             break;
 
+        /* Controller product */
         case 'products':
 
             include "view/product/products.php";
