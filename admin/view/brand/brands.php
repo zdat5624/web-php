@@ -1,55 +1,68 @@
-<!-- Begin Page Content -->
-<div class="container-fluid">
+<style>
+    .table-container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-3 text-gray-800">Quản lí nhà sản xuất</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables, please visit the <a target="_blank"
-            href="https://datatables.net">official DataTables documentation</a>.</p>
+    .table thead {
+        background-color: #4e73df;
+        color: white;
+    }
 
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
+    .table tbody tr:hover {
+        background-color: #f8f9fc;
+    }
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    .btn-primary {
+        background-color: #4e73df;
+        border-color: #4e73df;
+    }
+
+    .btn-primary:hover {
+        background-color: #375ac1;
+        border-color: #375ac1;
+    }
+</style>
+
+<div class="table-container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Quản lý thương hiệu</h3>
+        <button class="btn btn-success"><i class="fas fa-plus"></i> Thêm</button>
     </div>
-
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Sản phẩm A</td>
+                    <td>100,000 VND</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Xem</button>
+                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
+                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Sản phẩm B</td>
+                    <td>200,000 VND</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Xem</button>
+                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
+                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<!-- /.container-fluid -->
