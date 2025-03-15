@@ -29,39 +29,39 @@
 <div class="table-container">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 style="color: rgb(60, 102, 215);">Quản lý danh mục</h3>
-        <button class="btn btn-success"><i class="fas fa-plus"></i> Thêm</button>
+        <a href="index.php?pg=addcategory" class="btn btn-success">
+            <i class="fas fa-plus"></i> Thêm
+        </a>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                <tr>
                     <th>ID</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Giá</th>
+                    <th>Tên danh mục</th>
+                    <th>Thứ tự hiển thị</th>
                     <th>Thao tác</th>
+                </tr>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Sản phẩm A</td>
-                    <td>100,000 VND</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Xem</button>
-                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Sản phẩm B</td>
-                    <td>200,000 VND</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Xem</button>
-                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</button>
-                    </td>
-                </tr>
+                <?php foreach ($categories as $category) : ?>
+                    <tr>
+                        <td><?= $category['id'] ?></td>
+                        <td><?= $category['name'] ?></td>
+                        <td><?= $category['order_number'] ?></td>
+                        <td>
+                            <a href="index.php?pg=updatecategory&id=<?= $category['id'] ?>">
+                                <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
+                            </a>
+                            <a href="index.php?pg=deletecategory&id=<?= $category['id'] ?>"
+                                onclick="return confirm('Bạn có chắc muốn xóa người dùng này?')">
+                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</button>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

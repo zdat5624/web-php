@@ -30,39 +30,45 @@
 <div class="table-container">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 style="color: rgb(60, 102, 215);">Quản lý người dùng</h3>
-        <button class="btn btn-success"><i class="fas fa-plus"></i> Thêm</button>
+        <a href="index.php?pg=adduser" class="btn btn-success">
+            <i class="fas fa-plus"></i> Thêm
+        </a>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Giá</th>
+                    <th>email</th>
+                    <th>Mật khẩu</th>
+                    <th>Tên</th>
+                    <th>Địa chỉ</th>
+                    <th>SĐT</th>
+                    <th>SĐT</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Sản phẩm A</td>
-                    <td>100,000 VND</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Xem</button>
-                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Sản phẩm B</td>
-                    <td>200,000 VND</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Xem</button>
-                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</button>
-                    </td>
-                </tr>
+                <?php foreach ($users as $user) : ?>
+                    <tr>
+                        <td><?= $user['id'] ?></td>
+                        <td><?= $user['email'] ?></td>
+                        <td><?= $user['password'] ?></td>
+                        <td><?= $user['name'] ?></td>
+                        <td><?= $user['address'] ?></td>
+                        <td><?= $user['phone'] ?></td>
+                        <td><?= $user['role'] ?></td>
+                        <td>
+                            <a href="index.php?pg=updateuser&id=<?= $user['id'] ?>">
+                                <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
+                            </a>
+                            <a href="index.php?pg=deleteuser&id=<?= $user['id'] ?>"
+                                onclick="return confirm('Bạn có chắc muốn xóa người dùng này?')">
+                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</button>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

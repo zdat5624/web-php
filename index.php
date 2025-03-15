@@ -1,15 +1,10 @@
 <?php
 // nhúng kết nối csdl
-include "dao/pdo.php";
-// include "dao/danhmuc.php";
-// include "dao/sanpham.php";
+require_once "dao/pdo.php";
 
 include "view/header.php";
 
-// //data dành cho trang chủ
-// $dssp_new=get_dssp_new(4);
-// $dssp_best=get_dssp_best(2);
-// $dssp_view=get_dssp_view(4);
+
 
 
 if (!isset($_GET['pg'])) {
@@ -18,6 +13,7 @@ if (!isset($_GET['pg'])) {
 } else {
     switch ($_GET['pg']) {
         case 'products':
+
 
             include "view/products.php";
             break;
