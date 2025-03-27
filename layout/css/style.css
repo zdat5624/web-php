@@ -3049,7 +3049,7 @@ fieldset:disabled a.btn {
 
 .btn-outline-primary:focus,
 .btn-outline-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(209, 156, 151, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(209, 155, 152, 0.5);
 }
 
 .btn-outline-primary.disabled,
@@ -3069,7 +3069,7 @@ fieldset:disabled a.btn {
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
 .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .show>.btn-outline-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(209, 156, 151, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(209, 155, 152, 0.5);
 }
 
 .btn-outline-secondary {
@@ -4002,11 +4002,11 @@ input[type="button"].btn-block {
 }
 
 .custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before {
-  background-color: rgba(209, 156, 151, 0.5);
+  background-color: rgba(209, 155, 152, 0.5);
 }
 
 .custom-checkbox .custom-control-input:disabled:indeterminate~.custom-control-label::before {
-  background-color: rgba(209, 156, 151, 0.5);
+  background-color: rgba(209, 155, 152, 0.5);
 }
 
 .custom-radio .custom-control-label::before {
@@ -4018,7 +4018,7 @@ input[type="button"].btn-block {
 }
 
 .custom-radio .custom-control-input:disabled:checked~.custom-control-label::before {
-  background-color: rgba(209, 156, 151, 0.5);
+  background-color: rgba(209, 155, 152, 0.5);
 }
 
 .custom-switch {
@@ -4054,7 +4054,7 @@ input[type="button"].btn-block {
 }
 
 .custom-switch .custom-control-input:disabled:checked~.custom-control-label::before {
-  background-color: rgba(209, 156, 151, 0.5);
+  background-color: rgba(209, 155, 152, 0.5);
 }
 
 .custom-select {
@@ -4076,7 +4076,7 @@ input[type="button"].btn-block {
 .custom-select:focus {
   border-color: #f8f0ef;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(209, 156, 151, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(209, 155, 152, 0.25);
 }
 
 .custom-select:focus::-ms-value {
@@ -5200,7 +5200,7 @@ a.badge-primary:focus {
 a.badge-primary:focus,
 a.badge-primary.focus {
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(209, 156, 151, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(209, 155, 152, 0.5);
 }
 
 .badge-secondary {
@@ -10680,7 +10680,7 @@ a.text-dark:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+  /* background: rgba(0, 0, 0, 0.3); */
   z-index: 1;
 }
 
@@ -10767,4 +10767,41 @@ a.text-dark:focus {
 #navbar-vertical {
   z-index: 1050 !important;
   /* Giá trị cao để nằm trên slideshow */
+}
+
+
+.vendor-item span {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.vendor-item:hover span {
+  color: #007bff;
+  transform: scale(1.1);
+}
+
+.vendor-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.vendor-item:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.owl-carousel .owl-item .vendor-item {
+  margin: 0 10px;
 }

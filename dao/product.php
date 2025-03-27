@@ -36,6 +36,18 @@ function updateProduct($id, $name, $price, $short_desc, $detail_desc, $view, $so
     pdo_execute($sql, $name, $price, $short_desc, $detail_desc, $view, $sold, $brand_id, $category_id, $image, $id);
 }
 
+function getNewProducts($limit = 8)
+{
+    $sql = "SELECT * FROM products ORDER BY id DESC LIMIT $limit";
+    return pdo_query($sql);
+}
+
+function getBestSellingProducts($limit = 8)
+{
+    $sql = "SELECT * FROM products ORDER BY sold DESC LIMIT $limit";
+    return pdo_query($sql);
+}
+
 function deleteProductById($id)
 {
     $sql = "DELETE FROM products WHERE id = ?";
