@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2025 at 08:14 PM
+-- Generation Time: Mar 18, 2025 at 11:43 AM
 -- Server version: 8.0.37
 -- PHP Version: 8.0.30
 
@@ -110,6 +110,7 @@ CREATE TABLE `orders` (
   `id` int NOT NULL,
   `total_price` bigint NOT NULL,
   `content` varchar(255) COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `type_payment` varchar(255) COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `status` varchar(255) COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `user_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_vietnamese_ci;
