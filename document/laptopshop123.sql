@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2025 at 05:36 PM
+-- Generation Time: Mar 28, 2025 at 04:52 PM
 -- Server version: 8.0.37
 -- PHP Version: 8.0.30
 
@@ -71,7 +71,7 @@ CREATE TABLE `cart_detail` (
   `id` int NOT NULL,
   `price` bigint NOT NULL,
   `quantity` int NOT NULL,
-  `order_id` int NOT NULL,
+  `cart_id` int NOT NULL,
   `product_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_vietnamese_ci;
 
