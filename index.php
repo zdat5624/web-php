@@ -37,6 +37,8 @@ if (!isset($_GET['pg'])) {
             break;
 
         default:
+            $newProducts = getNewProducts();
+            $bestSellingProducts = getBestSellingProducts();
             include "view/home.php";
             break;
     }
