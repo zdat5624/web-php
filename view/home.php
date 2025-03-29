@@ -1,6 +1,6 @@
 <div id="header-carousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item active" style="height: 410px;">
+        <div class="carousel-item active" style="height: 242px;">
             <img class="img-fluid" src="upload/H1_1440x242_31b060c70b.png" alt="Image">
             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                 <div class="p-3" style="max-width: 700px;">
@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div class="carousel-item" style="height: 410px;">
+        <div class="carousel-item" style="height: 242px;">
             <img class="img-fluid" src="upload/H1_1440x242_126dbedd86.png" alt="Image">
             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                 <div class="p-3" style="max-width: 700px;">

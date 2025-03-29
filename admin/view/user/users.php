@@ -44,7 +44,7 @@
                     <th>Tên</th>
                     <th>Địa chỉ</th>
                     <th>SĐT</th>
-                    <th>SĐT</th>
+                    <th>Role</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>

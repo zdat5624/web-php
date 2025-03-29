@@ -1,11 +1,10 @@
       <!-- Page Header Start -->
       <div class="container-fluid bg-secondary mb-5">
-          <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-              <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
+          <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 50px">
               <div class="d-inline-flex">
-                  <p class="m-0"><a href="">Home</a></p>
+                  <p class="m-0"><a href="index.php">Trang chủ</a></p>
                   <p class="m-0 px-2">-</p>
-                  <p class="m-0">Shopping Cart</p>
+                  <p class="m-0">Giỏ hàng</p>
               </div>
           </div>
       </div>
@@ -27,7 +26,7 @@
                       </thead>
                       <tbody class="align-middle">
                           <tr>
-                              <td class="align-middle"><img src="layout/img/product-1.jpg" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
+                              <td class="align-middle"><img src="upload/1743090837_9565_47463_laptop_lenovo_legion_pro_5_16irx9_83df0047vn__intel_core_i9_14900hx__4_.jpg.jpg" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
                               <td class="align-middle">$150</td>
                               <td class="align-middle">
                                   <div class="input-group quantity mx-auto" style="width: 100px;">
@@ -48,7 +47,7 @@
                               <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
                           </tr>
                           <tr>
-                              <td class="align-middle"><img src="layout/img/product-2.jpg" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
+                              <td class="align-middle"><img src="upload/1743090837_9565_47463_laptop_lenovo_legion_pro_5_16irx9_83df0047vn__intel_core_i9_14900hx__4_.jpg.jpg" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
                               <td class="align-middle">$150</td>
                               <td class="align-middle">
                                   <div class="input-group quantity mx-auto" style="width: 100px;">
@@ -69,7 +68,7 @@
                               <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
                           </tr>
                           <tr>
-                              <td class="align-middle"><img src="layout/img/product-3.jpg" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
+                              <td class="align-middle"><img src="upload/1743090837_9565_47463_laptop_lenovo_legion_pro_5_16irx9_83df0047vn__intel_core_i9_14900hx__4_.jpg.jpg" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
                               <td class="align-middle">$150</td>
                               <td class="align-middle">
                                   <div class="input-group quantity mx-auto" style="width: 100px;">
@@ -90,7 +89,7 @@
                               <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
                           </tr>
                           <tr>
-                              <td class="align-middle"><img src="layout/img/product-4.jpg" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
+                              <td class="align-middle"><img src="upload/1743090837_9565_47463_laptop_lenovo_legion_pro_5_16irx9_83df0047vn__intel_core_i9_14900hx__4_.jpg.jpg" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
                               <td class="align-middle">$150</td>
                               <td class="align-middle">
                                   <div class="input-group quantity mx-auto" style="width: 100px;">
@@ -111,7 +110,7 @@
                               <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
                           </tr>
                           <tr>
-                              <td class="align-middle"><img src="layout/img/product-5.jpg" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
+                              <td class="align-middle"><img src="upload/1743090837_9565_47463_laptop_lenovo_legion_pro_5_16irx9_83df0047vn__intel_core_i9_14900hx__4_.jpg.jpg" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
                               <td class="align-middle">$150</td>
                               <td class="align-middle">
                                   <div class="input-group quantity mx-auto" style="width: 100px;">

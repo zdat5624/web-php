@@ -10805,3 +10805,54 @@ a.text-dark:focus {
 .owl-carousel .owl-item .vendor-item {
   margin: 0 10px;
 }
+
+/* CSS cho tiêu đề "Danh Mục" */
+.category-title {
+  font-family: 'Poppins', sans-serif;
+  /* Đảm bảo dùng font Poppins */
+  font-size: 1.2rem;
+  /* Kích thước chữ lớn hơn một chút (khoảng 19px) */
+  font-weight: 600;
+  /* Chữ đậm vừa phải */
+  color: #ffffff;
+  /* Màu trắng để tương phản với nền */
+  text-transform: uppercase;
+  /* Chuyển chữ thành in hoa để trông chuyên nghiệp */
+  letter-spacing: 1px;
+  /* Khoảng cách giữa các chữ cái */
+  transition: all 0.3s ease;
+  /* Hiệu ứng mượt mà khi hover */
+}
+
+/* CSS cho nút chứa "Danh Mục" */
+.category-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: linear-gradient(90deg, #e5b0ab, #bd8883);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+  background: linear-gradient(90deg, #bd8883, #e5b0ab);
+}
+
+.category-btn:hover .category-title {
+  color: #f1f1f1;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.category-arrow {
+  font-size: 1.3rem;
+  color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+/* Hiệu ứng xoay mũi tên khi hover */
+.category-btn:hover .category-arrow {
+  transform: rotate(180deg);
+  /* Xoay mũi tên 180 độ khi hover */
+}

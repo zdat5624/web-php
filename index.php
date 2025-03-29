@@ -2,10 +2,10 @@
 // nhúng kết nối csdl
 require_once "dao/pdo.php";
 require_once "dao/product.php";
+require_once "dao/category.php";
+
+$categories = getAllCategories();
 include "view/header.php";
-
-
-
 
 if (!isset($_GET['pg'])) {
     $newProducts = getNewProducts();

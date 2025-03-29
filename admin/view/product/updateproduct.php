@@ -20,7 +20,7 @@
 
         <div class="mb-3">
             <label class="form-label">Mô tả chi tiết</label>
-            <textarea name="detail_desc" class="form-control" required><?= $product['detail_desc'] ?></textarea>
+            <textarea name="detail_desc" class="form-control" style="height: 300px;" required><?= $product['detail_desc'] ?></textarea>
         </div>
 
         <div class="mb-3">
