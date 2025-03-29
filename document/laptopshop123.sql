@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2025 at 04:52 PM
+-- Generation Time: Mar 29, 2025 at 12:15 PM
 -- Server version: 8.0.37
 -- PHP Version: 8.0.30
 
@@ -97,8 +97,7 @@ INSERT INTO `categories` (`id`, `name`, `order_number`) VALUES
 (3, 'Mỏng nhẹ', 3),
 (4, 'Sinh viên - Văn phòng', 4),
 (5, 'AI', 6),
-(6, 'ABC1', 71),
-(8, 'XYZ', 72);
+(6, 'ABC1', 71);
 
 -- --------------------------------------------------------
 
@@ -112,6 +111,7 @@ CREATE TABLE `orders` (
   `content` varchar(255) COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `type_payment` varchar(255) COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `status` varchar(255) COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_vietnamese_ci;
 
