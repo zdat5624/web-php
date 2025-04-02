@@ -41,3 +41,23 @@ function getCategoryById($id)
     $sql = "SELECT * FROM categories WHERE id = ?";
     return pdo_query_one($sql, $id);
 }
+
+
+function getTotalCategories()
+{
+    $sql = "SELECT COUNT(*) FROM categories";
+    return (int)pdo_query_value($sql);
+}
+
+function getCategoriesWithSort($pageSize, $offset, $sort = 'id', $order = 'DESC')
+{
+    $sql = "SELECT * FROM categories c
+            WHERE 1=1 ";
+
+    $sort_list = ['id', 'name', 'order_number'];
+    $sort = in_array($sort, $sort_list) ? $sort : 'id';
+    $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
+    $sql .= " ORDER BY c.$sort $order";
+    $sql .= " LIMIT $offset , $pageSize";
+    return pdo_query($sql);
+}

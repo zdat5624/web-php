@@ -9,7 +9,23 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="./layout/img/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="../favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -65,7 +81,10 @@
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="" class="text-decoration-none">
-                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">X</span>Laptopshop</h1>
+                    <h1 class="m-0 display-5 font-weight-semi-bold">
+                        <span class="text-primary font-weight-bold border px-3 mr-1 rounded">X</span>
+                        Laptopshop
+                    </h1>
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
@@ -146,6 +165,7 @@
                             <a href="index.php?pg=contact" class="nav-item nav-link">Liên hệ</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
+                            <a href="/admin/" class="nav-item nav-link">ADMIN</a>
                             <a href="" class="nav-item nav-link">Đăng nhập</a>
                             <a href="" class="nav-item nav-link">Đăng ký</a>
                         </div>

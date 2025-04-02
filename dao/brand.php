@@ -40,3 +40,23 @@ function getNextOrderNumberBrand()
 
     return intval($max_order_number) + 1;
 }
+
+function getTotalBrands()
+{
+    $sql = "SELECT COUNT(*) FROM brands";
+
+    return (int)pdo_query_value($sql);
+}
+
+function getBrandsWithSort($pageSize, $offset, $sort = 'id', $order = 'DESC')
+{
+    $sql = "SELECT * FROM brands b
+            WHERE 1=1 ";
+
+    $sort_list = ['id', 'name', 'order_number'];
+    $sort = in_array($sort, $sort_list) ? $sort : 'id';
+    $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
+    $sql .= " ORDER BY b.$sort $order";
+    $sql .= " LIMIT $offset , $pageSize";
+    return pdo_query($sql);
+}

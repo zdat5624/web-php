@@ -1,32 +1,4 @@
-<style>
-    .table-container {
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-    }
-
-    .table thead {
-        /* background-color: #4e73df; */
-        color: rgb(60, 102, 215);
-    }
-
-    .table tbody tr:hover {
-        background-color: #f8f9fc;
-    }
-
-    .btn-primary {
-        background-color: #4e73df;
-        border-color: #4e73df;
-    }
-
-    .btn-primary:hover {
-        background-color: #375ac1;
-        border-color: #375ac1;
-    }
-</style>
-
-<div class="table-container">
+<div class="table-container px-3">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 style="color: rgb(60, 102, 215);">Quản lý danh mục</h3>
         <a href="index.php?pg=addcategory" class="btn btn-success">
@@ -38,9 +10,57 @@
             <thead>
                 <tr>
                 <tr>
-                    <th>ID</th>
-                    <th>Tên danh mục</th>
-                    <th>Thứ tự hiển thị</th>
+                    <th>
+                        <a href="index.php?pg=categories&sort=id&order=<?= $sort == 'id' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
+                            class="sort-link <?= $sort == 'id' ? 'active' : '' ?>">
+                            ID
+                            <?php
+                            if ($sort == 'id') {
+                                if ($order == 'ASC') {
+                                    echo '<i class="fas fa-sort-up"></i>';
+                                } else {
+                                    echo '<i class="fas fa-sort-down"></i>';
+                                }
+                            } else {
+                                echo '<i class="fas fa-sort"></i>';
+                            }
+                            ?>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="index.php?pg=categories&sort=name&order=<?= $sort == 'name' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
+                            class="sort-link <?= $sort == 'name' ? 'active' : '' ?>">
+                            Tên danh mục
+                            <?php
+                            if ($sort == 'name') {
+                                if ($order == 'ASC') {
+                                    echo '<i class="fas fa-sort-up"></i>';
+                                } else {
+                                    echo '<i class="fas fa-sort-down"></i>';
+                                }
+                            } else {
+                                echo '<i class="fas fa-sort"></i>';
+                            }
+                            ?>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="index.php?pg=categories&sort=order_number&order=<?= $sort == 'order_number' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
+                            class="sort-link <?= $sort == 'order_number' ? 'active' : '' ?>">
+                            Thứ tự hiển thị
+                            <?php
+                            if ($sort == 'order_number') {
+                                if ($order == 'ASC') {
+                                    echo '<i class="fas fa-sort-up"></i>';
+                                } else {
+                                    echo '<i class="fas fa-sort-down"></i>';
+                                }
+                            } else {
+                                echo '<i class="fas fa-sort"></i>';
+                            }
+                            ?>
+                        </a>
+                    </th>
                     <th>Thao tác</th>
                 </tr>
                 </tr>
@@ -65,4 +85,30 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Paging -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <!-- Next button -->
+            <li class="page-item <?= $current_page <= 1 ? 'disabled' : '' ?>">
+                <a class="page-link" href="index.php?pg=categories&page=<?= $current_page - 1 ?>&sort=<?= $sort ?>&order=<?= $order ?>" aria-label="Previous">
+                    <span aria-hidden="true">«</span>
+                </a>
+            </li>
+
+            <!-- all page button -->
+            <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                <li class="page-item <?= $current_page == $i ? 'active' : '' ?>">
+                    <a class="page-link" href="index.php?pg=categories&page=<?= $i ?>&sort=<?= $sort ?>&order=<?= $order ?>"><?= $i ?></a>
+                </li>
+            <?php endfor; ?>
+
+            <!-- Prev button -->
+            <li class="page-item <?= $current_page >= $total_pages ? 'disabled' : '' ?>">
+                <a class="page-link" href="index.php?pg=categories&page=<?= $current_page + 1 ?>&sort=<?= $sort ?>&order=<?= $order ?>" aria-label="Next">
+                    <span aria-hidden="true">»</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>

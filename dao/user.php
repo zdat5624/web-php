@@ -34,3 +34,23 @@ function addUser($email, $password, $name, $address, $phone, $role)
             VALUES (?, ?, ?, ?, ?, ?)";
     pdo_execute($sql, $email, $password, $name, $address, $phone, $role);
 }
+
+function getUsersWithSort($pageSize, $offset, $sort = 'id', $order = 'DESC')
+{
+    $sql = "SELECT * FROM users u
+            WHERE 1=1 ";
+
+    $sort_list = ['id', 'email', 'name', 'address', 'role'];
+    $sort = in_array($sort, $sort_list) ? $sort : 'id';
+    $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
+    $sql .= " ORDER BY u.$sort $order";
+    $sql .= " LIMIT $offset , $pageSize";
+    return pdo_query($sql);
+}
+
+function getTotalUsers()
+{
+    $sql = "SELECT COUNT(*) FROM users";
+
+    return (int)pdo_query_value($sql);
+}

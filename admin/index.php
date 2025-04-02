@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once "../dao/pdo.php";
 include "../dao/global.php";
 
@@ -19,7 +20,22 @@ if (!isset($_GET['pg'])) {
 
         /* Controller user */
         case 'users':
-            $users = getAllUsers();
+            $pageSize = 10;
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+            $offset = ($current_page - 1) * $pageSize;
+
+            // sort
+            $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+            $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
+
+            // paging
+            $total_users = getTotalUsers();
+            $total_pages = ceil($total_users / $pageSize);
+
+            // product list
+            $users = getUsersWithSort($pageSize, $offset, $sort, $order);
+
             include "view/user/users.php";
             break;
 
@@ -65,8 +81,8 @@ if (!isset($_GET['pg'])) {
 
                 updateUser($id, $email, $password, $name, $address, $phone, $role);
             }
-            $users = getAllUsers();
-            include "view/user/users.php";
+            header("Location: index.php?pg=users");
+            exit();
             break;
 
 
@@ -79,7 +95,22 @@ if (!isset($_GET['pg'])) {
 
         /* Controller category */
         case 'categories':
-            $categories = getAllCategories();
+            $pageSize = 10;
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+            $offset = ($current_page - 1) * $pageSize;
+
+            // sort
+            $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+            $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
+
+            // paging
+            $total_categories = getTotalCategories();
+            $total_pages = ceil($total_categories / $pageSize);
+
+            // product list
+            $categories = getCategoriesWithSort($pageSize, $offset, $sort, $order);
+
             include "view/category/categories.php";
             break;
 
@@ -109,8 +140,8 @@ if (!isset($_GET['pg'])) {
 
                 updateCategory($id, $name, $order_number);
             }
-            $categories = getAllCategories();
-            include "view/category/categories.php";
+            header("Location: index.php?pg=categories");
+            exit();
             break;
 
 
@@ -136,7 +167,22 @@ if (!isset($_GET['pg'])) {
 
         /* Controller brand */
         case 'brands':
-            $brands = getAllBrands();
+            $pageSize = 10;
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+            $offset = ($current_page - 1) * $pageSize;
+
+            // sort
+            $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+            $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
+
+            // paging
+            $total_brands = getTotalBrands();
+            $total_pages = ceil($total_brands / $pageSize);
+
+            // product list
+            $brands = getBrandsWithSort($pageSize, $offset, $sort, $order);
+
             include "view/brand/brands.php";
             break;
 
@@ -193,7 +239,30 @@ if (!isset($_GET['pg'])) {
 
         /* Controller product */
         case 'products':
-            $products = getAllProducts();
+            $pageSize = 10;
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+            $offset = ($current_page - 1) * $pageSize;
+
+            // fitler
+            $brand_id = isset($_GET['brand']) ? $_GET['brand'] : null;
+            $category_id = isset($_GET['category']) ? $_GET['category'] : null;
+
+            // sort
+            $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+            $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
+
+            // data filter
+            $categories = getAllCategories();
+            $brands = getAllBrands();
+
+            // paging
+            $total_products = getTotalProductsWithFilters($brand_id, $category_id);
+            $total_pages = ceil($total_products / $pageSize);
+
+            // product list
+            $products = getProductsWithFilters($pageSize, $offset, $brand_id, $category_id, $sort, $order);
+
             include "view/product/products.php";
             break;
 
@@ -288,7 +357,7 @@ if (!isset($_GET['pg'])) {
                     $target_dir = IMG_PATH_ADMIN;
                     $image_name = basename($_FILES["image"]["name"]);
                     $imageFileType = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
-                    $new_image_name = time() . "_" . rand(1000, 9999) . "_" . $image_name . "." . $imageFileType;
+                    $new_image_name = time() . "_" . rand(1000, 9999) . "_" . $image_name;
                     $target_file = $target_dir . $new_image_name;
                     $uploadOk = 1;
 
@@ -296,9 +365,9 @@ if (!isset($_GET['pg'])) {
                         echo "<script>alert('Tệp quá lớn! Chỉ hỗ trợ file < 10MB.');</script>";
                         $uploadOk = 0;
                     }
-                    $allowed_extensions = ["jpg", "jpeg", "png", "gif"];
+                    $allowed_extensions = ["jpg", "jpeg", "png", "gif", "webp"];
                     if (!in_array($imageFileType, $allowed_extensions)) {
-                        echo "<script>alert('Chỉ cho phép file JPG, JPEG, PNG, GIF!');</script>";
+                        echo "<script>alert('Chỉ cho phép file JPG, JPEG, PNG, WEBP, GIF!');</script>";
                         $uploadOk = 0;
                     }
 
@@ -321,8 +390,9 @@ if (!isset($_GET['pg'])) {
 
                 updateProduct($id, $name, $price, $short_desc, $detail_desc, $view, $sold, $brand_id, $category_id, $image);
             }
-            $products = getAllProducts();
-            include "view/product/products.php";
+
+            header("Location: index.php?pg=products");
+            exit();
             break;
 
 
@@ -350,3 +420,4 @@ if (!isset($_GET['pg'])) {
 
 
 include "view/footer.php";
+ob_end_flush();

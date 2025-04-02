@@ -39,7 +39,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
             <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                 <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">Sản phẩm chất lượng</h5>
+                <h5 class="font-weight-semi-bold m-0">Chất lượng</h5>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
@@ -51,7 +51,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
             <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                 <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">Trả hàng trong 14 ngày</h5>
+                <h5 class="font-weight-semi-bold m-0">14 ngày trả hàng</h5>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
