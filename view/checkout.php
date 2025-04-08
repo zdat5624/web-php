@@ -1,5 +1,5 @@
  <!-- Page Header Start -->
- <div class="container-fluid bg-secondary mb-5">
+ <div class="container-fluid bg-secondary mb-2">
      <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 50px">
          <div class="d-inline-flex">
              <p class="m-0"><a href="index.php">Trang chủ</a></p>
@@ -14,7 +14,7 @@
 
 
  <!-- Checkout Start -->
- <div class="container-fluid pt-5">
+ <div class="container-fluid pt-2">
      <div class="row px-xl-5">
          <div class="col-lg-8">
              <div class="mb-4">

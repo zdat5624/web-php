@@ -66,7 +66,23 @@
                             ?>
                         </a>
                     </th>
-                    <th>Tên</th>
+                    <th>
+                        <a href="index.php?pg=products&<?= $brand_id ? "brand=$brand_id&" : '' ?><?= $category_id ? "category=$category_id&" : '' ?>sort=name&order=<?= $sort == 'name' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
+                            class="sort-link <?= $sort == 'name' ? 'active' : '' ?>">
+                            Tên sản phẩm
+                            <?php
+                            if ($sort == 'name') {
+                                if ($order == 'ASC') {
+                                    echo '<i class="fas fa-sort-up"></i>';
+                                } else {
+                                    echo '<i class="fas fa-sort-down"></i>';
+                                }
+                            } else {
+                                echo '<i class="fas fa-sort"></i>';
+                            }
+                            ?>
+                        </a>
+                    </th>
                     <th>Hình</th>
                     <th>
                         <a href="index.php?pg=products&<?= $brand_id ? "brand=$brand_id&" : '' ?><?= $category_id ? "category=$category_id&" : '' ?>sort=price&order=<?= $sort == 'price' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
@@ -119,8 +135,40 @@
                             ?>
                         </a>
                     </th>
-                    <th>Thương hiệu</th>
-                    <th>Danh mục</th>
+                    <th>
+                        <a href="index.php?pg=products&<?= $brand_id ? "brand=$brand_id&" : '' ?><?= $category_id ? "category=$category_id&" : '' ?>sort=brand_name&order=<?= $sort == 'brand_name' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
+                            class="sort-link <?= $sort == 'brand_name' ? 'active' : '' ?>">
+                            Thương hiệu
+                            <?php
+                            if ($sort == 'brand_name') {
+                                if ($order == 'ASC') {
+                                    echo '<i class="fas fa-sort-up"></i>';
+                                } else {
+                                    echo '<i class="fas fa-sort-down"></i>';
+                                }
+                            } else {
+                                echo '<i class="fas fa-sort"></i>';
+                            }
+                            ?>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="index.php?pg=products&<?= $brand_id ? "brand=$brand_id&" : '' ?><?= $category_id ? "category=$category_id&" : '' ?>sort=category_name&order=<?= $sort == 'category_name' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
+                            class="sort-link <?= $sort == 'category_name' ? 'active' : '' ?>">
+                            Thương hiệu
+                            <?php
+                            if ($sort == 'category_name') {
+                                if ($order == 'ASC') {
+                                    echo '<i class="fas fa-sort-up"></i>';
+                                } else {
+                                    echo '<i class="fas fa-sort-down"></i>';
+                                }
+                            } else {
+                                echo '<i class="fas fa-sort"></i>';
+                            }
+                            ?>
+                        </a>
+                    </th>
                     <th>Thao tác</th>
                 </tr>
             </thead>

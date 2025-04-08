@@ -10856,3 +10856,11 @@ a.text-dark:focus {
   transform: rotate(180deg);
   /* Xoay mũi tên 180 độ khi hover */
 }
+
+.custom-radio .custom-control-input:hover {
+  cursor: pointer;
+}
+
+.custom-radio .custom-control-label:hover {
+  cursor: pointer;
+}

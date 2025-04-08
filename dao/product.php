@@ -65,33 +65,33 @@ function getProductsWithFilters($pageSize, $offset, $brand_id = null, $category_
     // check null or empty
     if ($brand_id && $category_id) {
         $sql .= " AND p.brand_id = ? AND p.category_id = ?";
-        $sort_list = ['id', 'price', 'view', 'sold'];
+        $sort_list = ['id', 'price', 'view', 'sold', 'name', 'brand_name', 'category_name'];
         $sort = in_array($sort, $sort_list) ? $sort : 'id';
         $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
-        $sql .= " ORDER BY p.$sort $order";
+        $sql .= " ORDER BY $sort $order";
         $sql .= " LIMIT $offset , $pageSize";
         return pdo_query($sql, $brand_id, $category_id);
     } elseif ($brand_id) {
         $sql .= " AND p.brand_id = ?";
-        $sort_list = ['id', 'price', 'view', 'sold'];
+        $sort_list = ['id', 'price', 'view', 'sold', 'name', 'brand_name', 'category_name'];
         $sort = in_array($sort, $sort_list) ? $sort : 'id';
         $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
-        $sql .= " ORDER BY p.$sort $order";
+        $sql .= " ORDER BY $sort $order";
         $sql .= " LIMIT $offset , $pageSize";
         return pdo_query($sql, $brand_id);
     } elseif ($category_id) {
         $sql .= " AND p.category_id = ?";
-        $sort_list = ['id', 'price', 'view', 'sold'];
+        $sort_list = ['id', 'price', 'view', 'sold', 'name', 'brand_name', 'category_name'];
         $sort = in_array($sort, $sort_list) ? $sort : 'id';
         $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
-        $sql .= " ORDER BY p.$sort $order";
+        $sql .= " ORDER BY $sort $order";
         $sql .= " LIMIT $offset , $pageSize";
         return pdo_query($sql, $category_id);
     } else {
-        $sort_list = ['id', 'price', 'view', 'sold'];
+        $sort_list = ['id', 'price', 'view', 'sold', 'name', 'brand_name', 'category_name'];
         $sort = in_array($sort, $sort_list) ? $sort : 'id';
         $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
-        $sql .= " ORDER BY p.$sort $order";
+        $sql .= " ORDER BY $sort $order";
         $sql .= " LIMIT $offset , $pageSize";
         return pdo_query($sql);
     }
@@ -113,4 +113,74 @@ function getTotalProductsWithFilters($brand_id = null, $category_id = null)
     } else {
         return (int)pdo_query_value($sql);
     }
+}
+
+
+function getProductsWithFiltersForUser($pageSize, $offset, $brand_id = null, $category_id = null, $price_min = null, $price_max = null, $sort = 'new', $keyword = null)
+{
+    $sql = "SELECT p.*, b.name as brand_name, c.name as category_name
+            FROM products p
+            JOIN brands b ON p.brand_id = b.id
+            JOIN categories c ON p.category_id = c.id
+            WHERE 1=1";
+
+    // check null or empty
+    if ($brand_id) {
+        $sql .= " AND p.brand_id = $brand_id";
+    }
+    if ($category_id) {
+        $sql .= " AND p.category_id = $category_id";
+    }
+    if ($price_min && $price_max) {
+        $sql .= " AND p.price BETWEEN $price_min AND $price_max";
+    }
+    if ($keyword) {
+        $sql .= " AND p.name LIKE '%$keyword%' ";
+    }
+
+    switch ($sort) {
+        case 'new':
+            $sql .= " ORDER BY id DESC";
+            break;
+        case 'sold':
+            $sql .= " ORDER BY sold DESC";
+            break;
+        case 'view':
+            $sql .= " ORDER BY view DESC";
+            break;
+        case 'pricedesc':
+            $sql .= " ORDER BY price DESC";
+            break;
+        case 'priceasc':
+            $sql .= " ORDER BY price ASC";
+            break;
+        default:
+            $sql .= " ORDER BY id ASC";
+            break;
+    }
+
+
+    $sql .= " LIMIT $offset , $pageSize";
+
+    return pdo_query($sql);
+}
+
+function getTotalProductsWithFiltersForUser($brand_id = null, $category_id = null, $price_min = null, $price_max = null, $keyword = null)
+{
+    $sql = "SELECT COUNT(*) FROM products p WHERE 1=1";
+    // check null or empty
+    if ($brand_id) {
+        $sql .= " AND p.brand_id = $brand_id";
+    }
+    if ($category_id) {
+        $sql .= " AND p.category_id = $category_id";
+    }
+    if ($price_min !== null && $price_max !== null) {
+        $sql .= " AND p.price BETWEEN $price_min AND $price_max";
+    }
+
+    if ($keyword) {
+        $sql .= " AND p.name LIKE '%$keyword%' ";
+    }
+    return (int)pdo_query_value($sql);
 }

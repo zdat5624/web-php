@@ -34,7 +34,7 @@
 </div>
 
 <!-- Featured Start -->
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-4">
     <div class="row px-xl-5 pb-3">
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
             <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
@@ -127,7 +127,7 @@
 <!-- Categories End -->
 
 <!-- Products Start -->
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-4">
     <div class="text-center mb-4">
         <h2 class="section-title px-5"><span class="px-2">Sản Phẩm Bán Chạy</span></h2>
     </div>
@@ -136,12 +136,12 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="upload/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+                        <img class="img-fluid w-100" src="<?= IMG_PATH_USER . $product['image']; ?>" alt="<?= $product['name'] ?>">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3"><?= htmlspecialchars($product['name']) ?></h6>
+                        <h6 class="text-truncate mb-3"><?= $product['name'] ?></h6>
                         <div class="d-flex justify-content-center">
-                            <h6><?= number_format($product['price']) ?> VND</h6>
+                            <h6><?= number_format($product['price']) ?> VNĐ</h6>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
@@ -192,20 +192,20 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="upload/<?= htmlspecialchars($product['image']); ?>" alt="<?= htmlspecialchars($product['name']); ?>">
+                        <img class="img-fluid w-100" src="<?= IMG_PATH_USER . $product['image']; ?>" alt="<?= $product['name']; ?>">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3"><?= htmlspecialchars($product['name']); ?></h6>
+                        <h6 class="text-truncate mb-3"><?= $product['name']; ?></h6>
                         <div class="d-flex justify-content-center">
                             <h6><?= number_format($product['price']); ?> VNĐ</h6>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
                         <a href="product_detail.php?id=<?= $product['id']; ?>" class="btn btn-sm text-dark p-0">
-                            <i class="fas fa-eye text-primary mr-1"></i>View Detail
+                            <i class="fas fa-eye text-primary mr-1"></i>Xem Chi Tiết
                         </a>
                         <a href="add_to_cart.php?id=<?= $product['id']; ?>" class="btn btn-sm text-dark p-0">
-                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart
+                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm Vào Giỏ
                         </a>
                     </div>
                 </div>

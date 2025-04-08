@@ -1,5 +1,5 @@
 <!-- Page Header Start -->
-<div class="container-fluid bg-secondary mb-5">
+<div class="container-fluid bg-secondary mb-2">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 50px">
         <div class="d-inline-flex">
             <p class="m-0"><a href="index.php">Trang chủ</a></p>
@@ -12,7 +12,7 @@
 
 
 <!-- Contact Start -->
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-2">
     <div class="text-center mb-4">
         <h2 class="section-title px-5"><span class="px-2">Liên Hệ Để Được Giải Đáp Mọi Thắc Mắc</span></h2>
     </div>

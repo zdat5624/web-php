@@ -44,7 +44,7 @@
                             ?>
                         </a>
                     </th>
-                    <th>Mật khẩu</th>
+
                     <th>
                         <a href="index.php?pg=users&sort=name&order=<?= $sort == 'name' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
                             class="sort-link <?= $sort == 'name' ? 'active' : '' ?>">
@@ -121,7 +121,7 @@
                     <tr>
                         <td><?= $user['id'] ?></td>
                         <td><?= $user['email'] ?></td>
-                        <td><?= $user['password'] ?></td>
+
                         <td><?= $user['name'] ?></td>
                         <td><?= $user['address'] ?></td>
                         <td><?= $user['phone'] ?></td>

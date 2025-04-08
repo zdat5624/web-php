@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <title>XLaptopshop</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+    <meta name="keywords" content="XLaptopshop, laptop, mua laptop, bán laptop, laptop giá rẻ, laptop gaming, laptop văn phòng, laptop đồ họa, laptop AI, cửa hàng laptop, laptop chính hãng, laptop mới">
+    <meta name="description" content="XLaptopshop - Chuyên cung cấp các dòng laptop chính hãng, laptop gaming, laptop đồ họa, laptop văn phòng với giá tốt nhất. Mua laptop uy tín, bảo hành dài hạn, giao hàng tận nơi.">
+
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="../favicon/apple-icon-57x57.png">
@@ -88,7 +89,7 @@
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
-                <form action="">
+                <!-- <form action="">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm">
                         <div class="input-group-append">
@@ -97,7 +98,7 @@
                             </span>
                         </div>
                     </div>
-                </form>
+                </form> -->
             </div>
             <div class="col-lg-3 col-6 text-right">
                 <a href="" class="btn border">
@@ -115,7 +116,7 @@
 
 
     <!-- Navbar Start -->
-    <div class="container-fluid mb-5">
+    <div class="container-fluid mb-3">
         <div class="row border-top px-xl-5">
 
 
