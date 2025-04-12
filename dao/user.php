@@ -54,3 +54,14 @@ function getTotalUsers()
 
     return (int)pdo_query_value($sql);
 }
+
+function user_login($username, $password)
+{
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $user = pdo_query_one($sql, $username);
+
+    if ($user && $user['password'] === $password) {
+        return $user;
+    }
+    return false;
+}

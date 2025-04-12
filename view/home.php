@@ -129,7 +129,9 @@
 <!-- Products Start -->
 <div class="container-fluid pt-4">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Sản Phẩm Bán Chạy</span></h2>
+        <h2 class="section-title px-5" style="font-family: 'Poppins', sans-serif !important;">
+            <span class="px-2">Sản Phẩm Bán Chạy</span>
+        </h2>
     </div>
     <div class="row px-xl-5 pb-3">
         <?php foreach ($bestSellingProducts as $product) : ?>
@@ -139,7 +141,7 @@
                         <img class="img-fluid w-100" src="<?= IMG_PATH_USER . $product['image']; ?>" alt="<?= $product['name'] ?>">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3"><?= $product['name'] ?></h6>
+                        <h6 class="text-truncate mb-3 px-2"><?= $product['name'] ?></h6>
                         <div class="d-flex justify-content-center">
                             <h6><?= number_format($product['price']) ?> VNĐ</h6>
                         </div>
@@ -148,13 +150,15 @@
                         <a href="index.php?pg=productdetail&id=<?= $product['id'] ?>" class="btn btn-sm text-dark p-0">
                             <i class="fas fa-eye text-primary mr-1"></i>Xem Chi Tiết
                         </a>
-                        <a href="index.php?pg=cart&action=add&id=<?= $product['id'] ?>" class="btn btn-sm text-dark p-0">
-                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm Vào Giỏ
-                        </a>
+                        <button class="btn btn-sm text-dark p-0 add-to-cart" data-product-id="<?= $product['id'] ?>"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm Vào Giỏ</button>
                     </div>
                 </div>
             </div>
         <?php endforeach; ?>
+    </div>
+
+    <div class="text-center mt-1">
+        <a href="index.php?pg=products&sort=sold" class="btn btn-primary py-2 px-3">Xem Thêm</a>
     </div>
 </div>
 <!-- Products End -->
@@ -185,7 +189,9 @@
 <!-- Products Start -->
 <div class="container-fluid pt-5">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Sản Phẩm Mới</span></h2>
+        <h2 class=" section-title px-5" style="font-family: 'Poppins', sans-serif !important;">
+            <span class="px-2">Sản Phẩm Mới</span>
+        </h2>
     </div>
     <div class="row px-xl-5 pb-3">
         <?php foreach ($newProducts as $product): ?>
@@ -195,22 +201,23 @@
                         <img class="img-fluid w-100" src="<?= IMG_PATH_USER . $product['image']; ?>" alt="<?= $product['name']; ?>">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3"><?= $product['name']; ?></h6>
+                        <h6 class="text-truncate mb-3 px-2"><?= $product['name']; ?></h6>
                         <div class="d-flex justify-content-center">
                             <h6><?= number_format($product['price']); ?> VNĐ</h6>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="product_detail.php?id=<?= $product['id']; ?>" class="btn btn-sm text-dark p-0">
+                        <a href="index.php?pg=productdetail&id=<?= $product['id'] ?>" class="btn btn-sm text-dark p-0">
                             <i class="fas fa-eye text-primary mr-1"></i>Xem Chi Tiết
                         </a>
-                        <a href="add_to_cart.php?id=<?= $product['id']; ?>" class="btn btn-sm text-dark p-0">
-                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm Vào Giỏ
-                        </a>
+                        <button class="btn btn-sm text-dark p-0 add-to-cart" data-product-id="<?= $product['id'] ?>"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm Vào Giỏ</button>
                     </div>
                 </div>
             </div>
         <?php endforeach; ?>
+    </div>
+    <div class="text-center mt-1">
+        <a href="index.php?pg=products&sort=new" class="btn btn-primary py-2 px-3">Xem Thêm</a>
     </div>
 </div>
 <!-- Products End -->
@@ -219,39 +226,20 @@
 <!-- Vendor Start : list brand -->
 <div class="container-fluid py-5">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Thương Hiệu</span></h2>
+        <h2 class="section-title px-5" style="font-family: 'Poppins', sans-serif !important;">
+            <span class="px-2">Thương Hiệu</span>
+        </h2>
     </div>
     <div class="row px-xl-5">
         <div class="col">
             <div class="owl-carousel vendor-carousel">
-                <div class="vendor-item border p-4">
-                    <span>Apple</span>
-                </div>
-                <div class="vendor-item border p-4">
-                    <span>Lenovo</span>
-                </div>
-                <div class="vendor-item border p-4">
-                    <span>Razer</span>
-                </div>
-                <div class="vendor-item border p-4">
-                    <span>Asus</span>
-                </div>
-                <div class="vendor-item border p-4">
-                    <span>Acer</span>
-                </div>
-                <div class="vendor-item border p-4">
-                    <span>Dell</span>
-                </div>
-                <div class="vendor-item border p-4">
-                    <span>Apple</span>
-                </div>
-                <div class="vendor-item border p-4">
-                    <span>HP</span>
-                </div>
-                <div class="vendor-item border p-4">
-                    <span>MSI</span>
-                </div>
-
+                <?php foreach ($brands as $brand): ?>
+                    <a href="index.php?pg=products&brand=<?= $brand['id'] ?>" class="vendor-item border p-4 text-decoration-none">
+                        <span>
+                            <?= $brand['name'] ?>
+                        </span>
+                    </a>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

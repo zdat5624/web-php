@@ -8,7 +8,6 @@
     <meta name="keywords" content="XLaptopshop, laptop, mua laptop, bán laptop, laptop giá rẻ, laptop gaming, laptop văn phòng, laptop đồ họa, laptop AI, cửa hàng laptop, laptop chính hãng, laptop mới">
     <meta name="description" content="XLaptopshop - Chuyên cung cấp các dòng laptop chính hãng, laptop gaming, laptop đồ họa, laptop văn phòng với giá tốt nhất. Mua laptop uy tín, bảo hành dài hạn, giao hàng tận nơi.">
 
-
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="../favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../favicon/apple-icon-60x60.png">
@@ -47,15 +46,8 @@
     <div class="container-fluid">
         <div class="row bg-secondary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
-                <!-- <div class="d-inline-flex align-items-center">
-                    <a class="text-dark" href="">FAQs</a>
-                    <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Help</a>
-                    <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Support</a>
-                </div> -->
                 <div class="d-inline-flex align-items-center">
-                    <i class=" fa fa-map-marker-alt text-primary mr-3"></i>
+                    <i class="fa fa-map-marker-alt text-primary mr-3"></i>
                     19 Nguyễn Hữu Thọ, Tân Phong, Quận 7, Hồ Chí Minh
                 </div>
             </div>
@@ -81,47 +73,44 @@
         </div>
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
-                <a href="" class="text-decoration-none">
+                <a href="index.php" class="text-decoration-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold">
-                        <span class="text-primary font-weight-bold border px-3 mr-1 rounded">X</span>
+                        <span class="text-primary font-weight-bold border px-3 mr-1 custom-rounded">X</span>
                         Laptopshop
                     </h1>
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
-                <!-- <form action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm">
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
-                    </div>
-                </form> -->
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
+                <!-- <a href="" class="btn border">
                     <i class="fas fa-heart text-primary"></i>
                     <span class="badge">0</span>
-                </a>
-                <a href="index.php?pg=cart" class="btn border">
-                    <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
+                </a> -->
+                <?php
+                if (isset($_SESSION['user'])) {
+                    $user_id = $_SESSION['user']['id'];
+                    $cart = getCartByUserId($user_id);
+                    $cart_item_count = 0;
+                    if ($cart) {
+                        $cart_details = getCartDetails($cart['id']);
+                        $cart_item_count = count($cart_details);
+                    }
+                    echo '<a href="index.php?pg=cart" class="btn border">
+                        <i class="fas fa-shopping-cart text-primary"></i>
+                        <span class="badge">' . $cart_item_count . '</span>
+                    </a>';
+                }
+                ?>
             </div>
         </div>
     </div>
     <!-- Topbar End -->
 
-
     <!-- Navbar Start -->
     <div class="container-fluid mb-3">
         <div class="row border-top px-xl-5">
-
-
             <!-- Categories -->
-
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100 category-btn"
                     data-toggle="collapse" href="#navbar-vertical"
@@ -134,14 +123,13 @@
                     <div class="navbar-nav w-100 overflow-y-auto">
                         <?php
                         foreach ($categories as $category) {
-                            echo '<a href="" class="nav-item nav-link">' . htmlspecialchars($category['name']) . '</a>';
+                            echo '<a href="" class="nav-item nav-link">' . $category['name'] . '</a>';
                         }
                         ?>
                     </div>
                 </nav>
             </div>
-            <!-- end Categories-->
-
+            <!-- End Categories -->
 
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
@@ -153,27 +141,90 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.php" class="nav-item nav-link active">Home</a>
-                            <a href="index.php?pg=products" class="nav-item nav-link">Sản phẩm</a>
-                            <a href="index.php?pg=productdetail" class="nav-item nav-link">Chi tiết sản phẩm</a>
-                            <div class="nav-item dropdown">
+                            <a href="index.php" class="nav-item nav-link <?= !isset($_GET['pg'])   ? 'active' : '' ?> ">Home</a>
+                            <a href="index.php?pg=products" class="nav-item nav-link <?= isset($_GET['pg']) && $_GET['pg'] === 'products' ? 'active' : '' ?>">Sản phẩm</a>
+                            <!-- <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="index.php?pg=cart" class="dropdown-item">Giỏ hàng</a>
                                     <a href="index.php?pg=checkout" class="dropdown-item">Thanh toán</a>
                                 </div>
-                            </div>
-                            <a href="index.php?pg=contact" class="nav-item nav-link">Liên hệ</a>
+                            </div> -->
+                            <a href="index.php?pg=contact" class="nav-item nav-link <?= isset($_GET['pg']) && $_GET['pg'] === 'contact' ? 'active' : '' ?>">Liên hệ</a>
                         </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <a href="/admin/" class="nav-item nav-link">ADMIN</a>
-                            <a href="" class="nav-item nav-link">Đăng nhập</a>
-                            <a href="" class="nav-item nav-link">Đăng ký</a>
+                        <div class="navbar-nav ml-auto py-0" id="auth-nav">
+                            <?php
+                            //ADMIN
+                            if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'ADMIN') {
+                                echo '
+                                        <div class="nav-item dropdown">
+                                            <a href="#" class="nav-link " data-toggle="dropdown">Xin chào, ' . $_SESSION['user']['name'] . '<i class="fas fa-user-cog ml-2"></i></i></a>
+                                            <div class="dropdown-menu rounded-0 m-0">
+                                                <a href="/admin/" class="dropdown-item">Trang quản trị</a>
+                                                <a href="index.php?pg=profile" class="dropdown-item">Thông tin cá nhân</a>
+                                                <a href="index.php?pg=orders" class="dropdown-item">Đơn hàng</a>
+                                                <a href="index.php?pg=cart" class="dropdown-item">Giỏ hàng</a>
+                                                <a href="index.php?pg=logout" class="dropdown-item">Đăng xuất</a>
+                                            </div>
+                                        </div>';
+                            } else if (isset($_SESSION['user'])) {
+                                //USER
+                                echo '
+                                        <div class="nav-item dropdown">
+                                            <a href="#" class="nav-link" data-toggle="dropdown">Xin chào, ' . $_SESSION['user']['name'] . '<i class="fas fa-user-cog ml-2"></i></i></a>
+                                            <div class="dropdown-menu rounded-0 m-0">
+                                                <a href="index.php?pg=profile" class="dropdown-item">Thông tin cá nhân</a>
+                                                <a href="index.php?pg=orders" class="dropdown-item">Đơn hàng</a>
+                                                <a href="index.php?pg=cart" class="dropdown-item">Giỏ hàng</a>
+                                                <a href="index.php?pg=logout" class="dropdown-item">Đăng xuất</a>
+                                            </div>
+                                        </div>';
+                            } else {
+                                // Hiển thị liên kết Đăng nhập và Đăng ký khi chưa đăng nhập
+                                echo '
+                                    <a href="#" class="nav-item nav-link" data-toggle="modal" data-target="#loginModal">Đăng nhập</a>
+                                    <a href="#" class="nav-item nav-link">Đăng ký</a>';
+                            }
+                            ?>
                         </div>
                     </div>
                 </nav>
-
             </div>
         </div>
     </div>
     <!-- Navbar End -->
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Đăng nhập</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="login-message"></div>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="username">Email</label>
+                            <input type="email" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" name="login" class="btn btn-primary btn-block">Đăng nhập</button>
+                    </form>
+                    <p class="text-center mt-3">Chưa có tài khoản? <a href="index.php?pg=register">Đăng ký ngay</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Login Modal -->
+
+
+</body>
+
+</html>

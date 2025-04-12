@@ -1,9 +1,12 @@
 <?php
+ob_start();
+session_start();
 // nhúng kết nối csdl
 require_once "dao/pdo.php";
 require_once "dao/product.php";
 require_once "dao/category.php";
 require_once "dao/brand.php";
+require_once "dao/cart.php";
 require_once "dao/global.php";
 
 $categories = getAllCategories();
@@ -12,9 +15,19 @@ include "view/header.php";
 if (!isset($_GET['pg'])) {
     $newProducts = getNewProducts();
     $bestSellingProducts = getBestSellingProducts();
+    $brands = getAllBrands();
     include "view/home.php";
 } else {
     switch ($_GET['pg']) {
+
+
+        case 'logout':
+            session_unset(); // Xóa tất cả biến session
+            session_destroy(); // Hủy session
+            header("Location: index.php");
+            exit();
+            break;
+
         case 'products':
 
 
@@ -77,6 +90,9 @@ if (!isset($_GET['pg'])) {
 
         case 'productdetail':
 
+            $id = isset($_GET['id']) ? $_GET['id'] : null;
+            $product = getProductById($id);
+
             include "view/productdetail.php";
             break;
 
@@ -85,6 +101,16 @@ if (!isset($_GET['pg'])) {
             break;
 
         case 'cart':
+            if (!isset($_SESSION['user'])) {
+                header("Location: index.php");
+                exit();
+            }
+            $user_id = $_SESSION['user']['id'];
+            $cart = getCartByUserId($user_id);
+            if (!$cart) {
+                $cart = createCart($user_id);
+            }
+            $cart_details = getCartDetails($cart['id']);
             include "view/cart.php";
             break;
 
@@ -95,6 +121,7 @@ if (!isset($_GET['pg'])) {
         default:
             $newProducts = getNewProducts();
             $bestSellingProducts = getBestSellingProducts();
+            $brands = getAllBrands();
             include "view/home.php";
             break;
     }

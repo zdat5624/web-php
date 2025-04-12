@@ -20,7 +20,7 @@
             <div id="product-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner border">
                     <div class="carousel-item active">
-                        <img class="w-100 h-100" src="upload/1743090837_9565_47463_laptop_lenovo_legion_pro_5_16irx9_83df0047vn__intel_core_i9_14900hx__4_.jpg.jpg" alt="Image">
+                        <img class="w-100 h-100" src="<?= IMG_PATH_USER . $product['image']; ?>" alt="Image">
                     </div>
                 </div>
                 <!-- <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
@@ -32,9 +32,9 @@
             </div>
         </div>
 
-        <div class="col-lg-7 pb-5">
-            <h3 class="font-weight-semi-bold">Laptop</h3>
-            <div class="d-flex mb-3">
+        <div class="col-lg-7 pb-5 mt-3">
+            <h3 class="font-weight-semi-bold mb-4"><?= $product['name'] ?></h3>
+            <!-- <div class="d-flex mb-3">
                 <div class="text-primary mr-2">
                     <small class="fas fa-star"></small>
                     <small class="fas fa-star"></small>
@@ -43,9 +43,9 @@
                     <small class="far fa-star"></small>
                 </div>
                 <small class="pt-1">(50 Reviews)</small>
-            </div>
-            <h3 class="font-weight-semi-bold mb-4">$150.00</h3>
-            <p class="mb-5">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
+            </div> -->
+            <h3 class="font-weight-semi-bold mb-4"><?= number_format($product['price']) ?> VNĐ</h3>
+            <p class="mb-5"><?= $product['short_desc'] ?></p>
             <!-- <div class="d-flex mb-3">
                 <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
                 <form>
@@ -99,18 +99,18 @@
             <div class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 130px;">
                     <div class="input-group-btn">
-                        <button class="btn btn-primary btn-minus">
+                        <button class="btn btn-primary btn-minus" type="button">
                             <i class="fa fa-minus"></i>
                         </button>
                     </div>
-                    <input type="text" class="form-control bg-secondary text-center" value="1">
+                    <input type="number" class="form-control bg-secondary text-center quantity-input" value="1" min="1" step="1">
                     <div class="input-group-btn">
-                        <button class="btn btn-primary btn-plus">
+                        <button class="btn btn-primary btn-plus" type="button">
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
                 </div>
-                <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                <button class="btn btn-primary px-3 add-to-cart" data-product-id="<?= $product['id'] ?>"><i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ</button>
             </div>
             <!-- <div class="d-flex pt-2">
                 <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
@@ -131,18 +131,18 @@
             </div> -->
         </div>
     </div>
-    <div class="row px-xl-5">
+    <!-- <div class="row px-xl-5">
         <div class="col">
             <div class="nav nav-tabs justify-content-center border-secondary mb-4">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Mô tả</a>
                 <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Information</a>
                 <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
             </div>
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="tab-pane-1">
-                    <h4 class="mb-3">Product Description</h4>
-                    <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
-                    <p>Dolore magna est eirmod sanctus dolor, amet diam et eirmod et ipsum. Amet dolore tempor consetetur sed lorem dolor sit lorem tempor. Gubergren amet amet labore sadipscing clita clita diam clita. Sea amet et sed ipsum lorem elitr et, amet et labore voluptua sit rebum. Ea erat sed et diam takimata sed justo. Magna takimata justo et amet magna et.</p>
+                    <h4 class="mb-3">Mô tả sản phẩm</h4>
+                    <p><?= nl2br($product['detail_desc']) ?></p>
+
                 </div>
                 <div class="tab-pane fade" id="tab-pane-2">
                     <h4 class="mb-3">Additional Information</h4>
@@ -236,7 +236,69 @@
                 </div>
             </div>
         </div>
+    </div> -->
+
+    <div class="row px-xl-5">
+        <div class="col">
+            <!-- Simplified to only show the Description section without tabs -->
+            <div class="description-section">
+                <h4 class="font-weight-semi-bold mb-3">Mô tả chi tiết sản phẩm</h4>
+                <div class="description-content">
+                    <p class="short-desc"><?= nl2br(substr($product['detail_desc'], 0, 460)) . '...' ?></p>
+                    <p class="full-desc" style="display: none;"><?= nl2br($product['detail_desc']) ?></p>
+                </div>
+                <button class="btn btn-link read-more-btn">Xem thêm</button>
+            </div>
+        </div>
     </div>
+
+    <!-- Add some CSS and JavaScript for the "Read more" functionality -->
+    <style>
+        .description-content {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .short-desc {
+            margin-bottom: 10px;
+        }
+
+        .read-more-btn {
+            /* color: #007bff; */
+            padding: 0;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .read-more-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const readMoreBtn = document.querySelector('.read-more-btn');
+            const shortDesc = document.querySelector('.short-desc');
+            const fullDesc = document.querySelector('.full-desc');
+
+            readMoreBtn.addEventListener('click', function() {
+                if (fullDesc.style.display === 'none') {
+                    fullDesc.style.display = 'block';
+                    shortDesc.style.display = 'none';
+                    readMoreBtn.textContent = 'Thu gọn';
+                } else {
+                    fullDesc.style.display = 'none';
+                    shortDesc.style.display = 'block';
+                    readMoreBtn.textContent = 'Xem thêm';
+                }
+            });
+        });
+    </script>
+
+
+
+
+
 </div>
 <!-- Shop Detail End -->
 
@@ -251,7 +313,7 @@
             <div class="owl-carousel related-carousel">
                 <div class="card product-item border-0">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="upload/1743090837_9565_47463_laptop_lenovo_legion_pro_5_16irx9_83df0047vn__intel_core_i9_14900hx__4_.jpg.jpg" alt="">
+                        <img class="img-fluid w-100" src="<?= IMG_PATH_USER . $product['image']; ?>" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -261,8 +323,8 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem Chi Tiết</a>
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm Vào Giỏ</a>
                     </div>
                 </div>
                 <div class="card product-item border-0">
