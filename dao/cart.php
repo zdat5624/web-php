@@ -6,6 +6,12 @@ function getCartByUserId($user_id)
     return pdo_query_one($sql, $user_id);
 }
 
+function getCartById($id)
+{
+    $sql = "SELECT * FROM carts c WHERE c.id = ?";
+    return pdo_query_one($sql, $id);
+}
+
 //  tạo giỏ hàng mới
 function createCart($user_id)
 {

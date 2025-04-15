@@ -10,61 +10,53 @@
 </div>
 <!-- Page Header End -->
 
-
 <!-- Contact Start -->
-<div class="container-fluid pt-2">
-    <div class="text-center mb-4">
-        <h2 class="section-title px-5" style="font-family: 'Poppins', sans-serif !important;"><span class="px-2">Liên Hệ Để Được Giải Đáp Mọi Thắc Mắc</span></h2>
+<div class="container-fluid pt-4">
+    <div class="text-center mb-5">
+        <h2 class="section-title px-5 font-weight-bold" style="font-family: 'Poppins', sans-serif !important;">
+            <span class="px-2">Liên Hệ Với XLaptopshop</span>
+        </h2>
+        <p class="text-muted mb-0" style="font-family: 'Poppins', sans-serif;">Chúng tôi luôn sẵn sàng hỗ trợ bạn với mọi thắc mắc về laptop, đơn hàng hoặc dịch vụ!</p>
     </div>
     <div class="row px-xl-5">
-        <div class="col-lg-7 mb-5">
-            <div class="contact-form">
-                <div id="success"></div>
-                <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                    <div class="control-group">
-                        <input type="text" class="form-control" id="name" placeholder="Your Name"
-                            required="required" data-validation-required-message="Please enter your name" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <input type="email" class="form-control" id="email" placeholder="Your Email"
-                            required="required" data-validation-required-message="Please enter your email" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <input type="text" class="form-control" id="subject" placeholder="Subject"
-                            required="required" data-validation-required-message="Please enter a subject" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <textarea class="form-control" rows="6" id="message" placeholder="Message"
-                            required="required"
-                            data-validation-required-message="Please enter your message"></textarea>
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Send
-                            Message</button>
-                    </div>
-                </form>
+        <div class="col-lg-6 col-12 mb-4">
+            <div class="card border-secondary shadow-sm rounded h-100">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0 ">Vị trí</h4>
+                </div>
+                <div class="card-body p-0">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.033019962894!2d106.69676687451663!3d10.731936660013863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b2747a81a3%3A0x33c1813055acb613!2zxJDhuqFpIGjhu41jIFTDtG4gxJDhu6ljIFRo4bqvbmc!5e0!3m2!1svi!2s!4v1744703999818!5m2!1svi!2s"
+                        width="100%"
+                        height="400"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
         </div>
-        <div class="col-lg-5 mb-5">
-            <h5 class="font-weight-semi-bold mb-3">Get In Touch</h5>
-            <p>Justo sed diam ut sed amet duo amet lorem amet stet sea ipsum, sed duo amet et. Est elitr dolor elitr erat sit sit. Dolor diam et erat clita ipsum justo sed.</p>
-            <div class="d-flex flex-column mb-3">
-                <h5 class="font-weight-semi-bold mb-3">Store 1</h5>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
-            </div>
-            <div class="d-flex flex-column">
-                <h5 class="font-weight-semi-bold mb-3">Store 2</h5>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+        <div class="col-lg-6 col-12 mb-4">
+            <div class="card border-secondary shadow-sm rounded h-100">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0 ">Thông tin liên hệ</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-column">
+                        <p class="mb-3"><i class="fa fa-map-marker-alt text-primary mr-3 fa-2x"></i>19 Nguyễn Hữu Thọ, Tân Phong, Quận 7, Hồ Chí Minh</p>
+                        <p class="mb-3"><i class="fa fa-envelope text-primary mr-3 fa-2x"></i>info@tdtu.edu.vn</p>
+                        <p class="mb-3"><i class="fa fa-phone-alt text-primary mr-3 fa-2x"></i>+012 345 67890</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <a class="text-dark px-3 social-icon" href="#" title="Facebook"><i class="fab fa-facebook-f fa-2x"></i></a>
+                            <a class="text-dark px-3 social-icon" href="#" title="Twitter"><i class="fab fa-twitter fa-2x"></i></a>
+                            <a class="text-dark px-3 social-icon" href="#" title="LinkedIn"><i class="fab fa-linkedin-in fa-2x"></i></a>
+                            <a class="text-dark px-3 social-icon" href="#" title="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
+                            <a class="text-dark px-3 social-icon" href="#" title="YouTube"><i class="fab fa-youtube fa-2x"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 <!-- Contact End -->

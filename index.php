@@ -7,7 +7,10 @@ require_once "dao/product.php";
 require_once "dao/category.php";
 require_once "dao/brand.php";
 require_once "dao/cart.php";
+require_once "dao/vnpay_check.php";
+require_once "dao/order.php";
 require_once "dao/global.php";
+
 
 $categories = getAllCategories();
 include "view/header.php";
@@ -26,6 +29,29 @@ if (!isset($_GET['pg'])) {
             session_destroy(); // Hủy session
             header("Location: index.php");
             exit();
+            break;
+
+        case 'profile':
+            $current_page = 'profile';
+            if (!isset($_SESSION['user'])) {
+                header("Location: index.php");
+                exit();
+            }
+            include "view/profile.php";
+            break;
+
+        case 'change_password':
+            $current_page = 'change_password';
+            if (!isset($_SESSION['user'])) {
+                header("Location: index.php");
+                exit();
+            }
+            include "view/change_password.php";
+            break;
+
+        case 'register':
+            $current_page = 'register';
+            include "view/register.php";
             break;
 
         case 'products':
@@ -115,8 +141,62 @@ if (!isset($_GET['pg'])) {
             break;
 
         case 'checkout':
+            if (!isset($_SESSION['user'])) {
+                header("Location: index.php");
+                exit();
+            }
+            $user_id = $_SESSION['user']['id'];
+            $cart = getCartByUserId($user_id);
+            if (!$cart) {
+                $cart = createCart($user_id);
+                header("Location: index.php");
+                exit();
+            }
+            $cart_details = getCartDetails($cart['id']);
+            if (empty($cart_details)) {
+                header("Location: index.php");
+                exit();
+            }
+
             include "view/checkout.php";
             break;
+
+
+        case 'orders':
+            if (!isset($_SESSION['user'])) {
+                header("Location: index.php");
+                exit();
+            }
+            $user_id = $_SESSION['user']['id'];
+
+            $pageSize = 10;
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $offset = ($current_page - 1) * $pageSize;
+            $total_orders = getTotalOrderForUser($user_id);
+            $total_pages = ceil($total_orders / $pageSize);
+
+
+            $orders = getOrdersByUserIdPagingForUser($pageSize, $offset, $user_id, $sort = 'id', $order = 'DESC');
+            include "view/orders.php";
+            break;
+
+        case 'order_detail':
+            if (!isset($_SESSION['user'])) {
+                header("Location: index.php");
+                exit();
+            }
+            $user_id = $_SESSION['user']['id'];
+            $order_id = isset($_GET['id']) ? $_GET['id'] : 0;
+            $order = getOrderById($order_id, $user_id);
+            if (!$order) {
+                header("Location: index.php?pg=orders");
+                exit();
+            }
+            $order_details = getOrderDetails($order_id);
+            include "view/order_detail.php";
+            break;
+
+
 
         default:
             $newProducts = getNewProducts();

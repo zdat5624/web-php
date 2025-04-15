@@ -82,7 +82,7 @@
 <script src="./layout/js/main.js"></script>
 
 
-<!-- AJAX Login Script -->
+<!-- AJAX Login -->
 <script>
     $(document).ready(function() {
         $('#loginForm').on('submit', function(e) {
@@ -116,12 +116,36 @@
                                             <div class="dropdown-menu rounded-0 m-0">
                         ${response.user.role === 'ADMIN' ? '<a href="/admin/" class="dropdown-item">Trang quản trị</a>' : ''}
                                                 <a href="index.php?pg=profile" class="dropdown-item">Thông tin cá nhân</a>
-                                                <a href="index.php?pg=orders" class="dropdown-item">Đơn hàng</a>
-                                                <a href="index.php?pg=cart" class="dropdown-item">Giỏ hàng</a>
+                                                <a href="index.php?pg=orders" class="dropdown-item">Đơn hàng của bạn</a>
+                                                <a href="index.php?pg=cart" class="dropdown-item">Giỏ hàng của bạn</a>
+                                                <a href="index.php?pg=cart" class="dropdown-item">Đổi mật khẩu</a>
                                                 <a href="index.php?pg=logout" class="dropdown-item">Đăng xuất</a>
                                             </div>
                                         </div>'`
                         );
+                        $.ajax({
+                            url: '/dao/ajax/cart_ajax.php',
+                            type: 'POST',
+                            data: {
+                                get_cart_count: true
+                            },
+                            dataType: 'json',
+                            success: function(cartResponse) {
+                                if (cartResponse.status === 'success') {
+                                    $('#cart-icon').html(
+                                        `<a href="index.php?pg=cart" class="btn border">
+                                            <i class="fas fa-shopping-cart text-primary"></i>
+                                            <span class="badge">${cartResponse.cart_count}</span>
+                                        </a>`
+                                    );
+                                } else {
+                                    $('#cart-icon').html('');
+                                }
+                            },
+                            error: function() {
+                                $('#cart-icon').html('');
+                            }
+                        });
                         $('#loginForm')[0].reset(); // Reset form
                     } else {
                         $('#login-message').html('<div class="alert alert-danger">' + response.message + '</div>');
@@ -141,27 +165,168 @@
     });
 </script>
 
+<!-- AJAX  Profile-->
 <script>
-    function updateCartCount() {
-        $.ajax({
-            url: '/dao/ajax/cart_ajax.php',
-            type: 'POST',
-            data: {
-                get_cart_count: true
-            },
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    $('.btn.border .badge').text(response.cart_count);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('Lỗi AJAX:', xhr.responseText);
-            }
-        });
-    }
-
     $(document).ready(function() {
+        $('#profileForm').on('submit', function(e) {
+            e.preventDefault(); // Ngăn form gửi thông thường
+
+            // Lấy giá trị từ các input thủ công
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var address = $('#address').val();
+            var phone = $('#phone').val();
+
+            // Tạo object dữ liệu để gửi
+            var formData = {
+                name: name,
+                address: address,
+                phone: phone
+            };
+
+            $.ajax({
+                url: '/dao/ajax/profile_ajax.php',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    // Hiển thị thông báo
+                    $('#alert-message').html(
+                        '<div class="alert alert-' + (response.status === 'success' ? 'success' : 'danger') + ' alert-dismissible fade show" role="alert">' +
+                        response.message +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+                    );
+                    // Cập nhật giá trị input nếu thành công
+                    if (response.status === 'success') {
+                        setTimeout(function() {
+                            location.reload(); // Tạm thời reload để cập nhật giao diện
+                        }, 1500);
+                    }
+                },
+                error: function() {
+                    $('#alert-message').html(
+                        '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        'Đã có lỗi xảy ra. Vui lòng thử lại sau.' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+                    );
+                }
+            });
+        });
+    });
+</script>
+
+<!-- AJAX Change Password -->
+<script>
+    $(document).ready(function() {
+        $('#changePasswordForm').on('submit', function(e) {
+            e.preventDefault();
+
+            var current_password = $('#current_password').val();
+            var new_password = $('#new_password').val();
+            var confirm_password = $('#confirm_password').val();
+
+            var formData = {
+                current_password: current_password,
+                new_password: new_password,
+                confirm_password: confirm_password
+            };
+
+            $.ajax({
+                url: '/dao/ajax/change_password_ajax.php',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    // Hiển thị thông báo
+                    $('#alert-message').html(
+                        '<div class="alert alert-' + (response.status === 'success' ? 'success' : 'danger') + ' alert-dismissible fade show" role="alert">' +
+                        response.message +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+                    );
+                    // Reset form nếu thành công
+                    if (response.status === 'success') {
+                        $('#changePasswordForm')[0].reset();
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1500);
+                    }
+                },
+                error: function() {
+                    $('#alert-message').html(
+                        '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        'Đã có lỗi xảy ra. Vui lòng thử lại sau.' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+                    );
+                }
+            });
+        });
+    });
+</script>
+<!--  AJAX Register -->
+<script>
+    $(document).ready(function() {
+        $('#registerForm').on('submit', function(e) {
+            e.preventDefault();
+
+            var formData = {
+                email: $('#email').val(),
+                password: $('#input_password').val(),
+                confirm_password: $('#input_confirm_password').val(),
+                name: $('#name').val(),
+                phone: $('#phone').val(),
+                address: $('#address').val()
+            };
+
+            $.ajax({
+                url: '/dao/ajax/register_ajax.php',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    $('#alert-message').html(
+                        '<div class="alert alert-' + (response.status === 'success' ? 'success' : 'danger') + ' alert-dismissible fade show" role="alert">' +
+                        response.message +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+                    );
+                    if (response.status === 'success') {
+                        $('#registerForm')[0].reset();
+                        setTimeout(function() {
+                            window.location.href = 'index.php?pg=profile';
+                        }, 1000);
+                    }
+                },
+                error: function() {
+                    $('#alert-message').html(
+                        '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        'Đã có lỗi xảy ra. Vui lòng thử lại sau.' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+                    );
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        function updateCartCount() {
+            $.ajax({
+                url: '/dao/ajax/cart_ajax.php',
+                type: 'POST',
+                data: {
+                    get_cart_count: true
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('.btn.border .badge').text(response.cart_count);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi AJAX:', xhr.responseText);
+                }
+            });
+        }
 
         // khi người dùng nhập trực tiếp vào input
         $('.quantity-input').on('input', function() {
@@ -176,6 +341,10 @@
         //  nút Thêm vào giỏ
         $('.add-to-cart').on('click', function(e) {
             e.preventDefault();
+
+            var $btn = $(this);
+            $btn.prop('disabled', true);
+
             var product_id = $(this).data('product-id');
             // lấy phần tử cha gần nhất có ".d-flex", từ phần tử cha lấy phần tử con có ".quantity-input"
             var quantityInput = $(this).closest('.d-flex').find('.quantity-input');
@@ -196,20 +365,26 @@
                 },
                 dataType: 'json',
                 success: function(response) {
+                    $btn.prop('disabled', false);
                     if (response.status === 'success') {
                         showToast(response.message, type = 'success');
                         updateCartCount();
+
+                    } else if (response.status === 'warning') {
+                        showToast(response.message, type = 'warning');
                     } else {
+
                         if (response.message.includes('đăng nhập')) {
                             $('#loginModal').modal('show');
                         } else {
-                            alert(response.message);
+                            showToast(response.message, type = 'error');
                         }
                     }
                 },
                 error: function(xhr, status, error) {
                     console.log('Lỗi AJAX:', xhr.responseText);
                     alert('Đã xảy ra lỗi: ' + error);
+                    $btn.prop('disabled', false);
                 }
             });
         });
@@ -284,46 +459,49 @@
         }
 
 
+        $('.btn-remove').on('click', function(e) {
+            e.preventDefault();
+            var cart_detail_id = $(this).data('cart-detail-id');
 
-
-    });
-
-    $('.btn-remove').on('click', function(e) {
-        e.preventDefault();
-        var cart_detail_id = $(this).data('cart-detail-id');
-
-        $.ajax({
-            url: '/dao/ajax/cart_ajax.php',
-            type: 'POST',
-            data: {
-                remove_cart_item: true,
-                cart_detail_id: cart_detail_id
-            },
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    showToast(response.message, 'success');
-                    // xóa hàng 
-                    $('button[data-cart-detail-id="' + cart_detail_id + '"]').closest('tr').remove();
-                    // Cập nhật số lượng sản phẩm trong giỏ
-                    updateCartCount();
-                    // Cập nhật total price
-                    $('.card-body .total-price').text(numberFormat(response.total_price) + ' VNĐ');
-                    $('.card-footer .total-price').text(numberFormat(response.total_price) + ' VNĐ');
-                    // giỏ hàng rỗng
-                    if (response.cart_count === 0) {
-                        $('tbody').html('<tr><td colspan="5" class="text-center">Giỏ hàng của bạn đang trống.</td></tr>');
+            $.ajax({
+                url: '/dao/ajax/cart_ajax.php',
+                type: 'POST',
+                data: {
+                    remove_cart_item: true,
+                    cart_detail_id: cart_detail_id
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        showToast(response.message, 'success');
+                        // xóa hàng 
+                        $('button[data-cart-detail-id="' + cart_detail_id + '"]').closest('tr').remove();
+                        // Cập nhật số lượng sản phẩm trong giỏ
+                        updateCartCount();
+                        // Cập nhật total price
+                        $('.card-body .total-price').text(numberFormat(response.total_price) + ' VNĐ');
+                        $('.card-footer .total-price').text(numberFormat(response.total_price) + ' VNĐ');
+                        // giỏ hàng rỗng
+                        if (response.cart_count === 0) {
+                            $('tbody').html('<tr><td colspan="5" class="text-center">Giỏ hàng của bạn đang trống.</td></tr>');
+                            $('.btn-to-checkout').remove();
+                        }
+                    } else if (response.status === 'warning') {
+                        showToast(response.message, 'warning');
+                    } else {
+                        showToast(response.message, 'error');
                     }
-                } else {
-                    showToast(response.message, 'error');
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi AJAX:', xhr.responseText);
+                    showToast('Đã xảy ra lỗi: ' + error, 'error');
                 }
-            },
-            error: function(xhr, status, error) {
-                console.log('Lỗi AJAX:', xhr.responseText);
-                showToast('Đã xảy ra lỗi: ' + error, 'error');
-            }
+            });
         });
+
+
     });
+
 
     function numberFormat(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -331,37 +509,288 @@
 </script>
 
 <script>
-    function showToast(message, type = 'success') {
+    $(document).ready(function() {
+        if ($('#province').length > 0) {
+            let selectedProvince = '';
+            let selectedDistrict = '';
+            let selectedWard = '';
+            let street = '';
 
-        if ($('#toast-container .toast').length >= 3) {
+            function updateFullAddress() {
+                let addressParts = [];
+                if (street) addressParts.push(street);
+                if (selectedWard) addressParts.push(selectedWard);
+                if (selectedDistrict) addressParts.push(selectedDistrict);
+                if (selectedProvince) addressParts.push(selectedProvince);
+
+                let fullAddress = addressParts.join(', ');
+                $('#full_address').val(fullAddress);
+            }
+
+            // Lấy danh sách tỉnh/thành phố
+            $.ajax({
+                url: '/dao/ajax/address_ajax.php',
+                type: 'GET',
+                data: {
+                    get_all_provinces: true
+                },
+                dataType: 'json',
+
+                success: function(response) {
+                    if (response.status === 'success' && response.provinces && response.provinces.length > 0) {
+                        const $select = $('#province');
+                        $select.empty();
+                        $select.append('<option value="">Chọn tỉnh/thành phố</option>');
+                        $.each(response.provinces, function(index, province) {
+                            $select.append(`<option value="${province.code}">${province.name}</option>`);
+                        });
+                        $select.prop('disabled', false);
+                    } else {
+                        showToast(response.message || 'Không có tỉnh/thành phố nào', 'error');
+                        $('#province').html('<option value="">Không có dữ liệu</option>').prop('disabled', true);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    showToast('Lỗi khi lấy tỉnh/thành phố: ' + error, 'error');
+                    $('#province').html('<option value="">Lỗi tải dữ liệu</option>').prop('disabled', true);
+                }
+            });
+
+            $('#province').on('change', function() {
+                let provinceCode = $(this).val();
+                selectedProvince = provinceCode ? $(this).find('option:selected').text() : '';
+                $('#district').prop('disabled', true).html('<option value="">Chọn quận/huyện</option>');
+                $('#ward').prop('disabled', true).html('<option value="">Chọn phường/xã</option>');
+                selectedDistrict = '';
+                selectedWard = '';
+                updateFullAddress();
+
+                if (provinceCode) {
+                    $.ajax({
+                        url: '/dao/ajax/address_ajax.php',
+                        type: 'GET',
+                        data: {
+                            get_districts_by_province_code: true,
+                            province_code: provinceCode
+                        },
+                        dataType: 'json',
+
+                        success: function(response) {
+                            if (response.status === 'success' && response.districts && response.districts.length > 0) {
+                                const $select = $('#district');
+                                $select.empty();
+                                $select.append('<option value="">Chọn quận/huyện</option>');
+                                $.each(response.districts, function(index, district) {
+                                    $select.append(`<option value="${district.code}">${district.name}</option>`);
+                                });
+                                $select.prop('disabled', false);
+                            } else {
+                                showToast(response.message || 'Không lấy được danh sách quận/huyện', 'error');
+                                $('#district').html('<option value="">Không có dữ liệu</option>').prop('disabled', true);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            showToast('Lỗi khi lấy quận/huyện: ' + error, 'error');
+                            $('#district').html('<option value="">Lỗi tải dữ liệu</option>').prop('disabled', true);
+                        }
+                    });
+                }
+            });
+
+            $('#district').on('change', function() {
+                let districtCode = $(this).val();
+                selectedDistrict = districtCode ? $(this).find('option:selected').text() : '';
+                $('#ward').prop('disabled', true).html('<option value="">Chọn phường/xã</option>');
+                selectedWard = '';
+                updateFullAddress();
+
+                if (districtCode) {
+                    $.ajax({
+                        url: '/dao/ajax/address_ajax.php',
+                        type: 'GET',
+                        data: {
+                            get_wards_by_district_code: true,
+                            district_code: districtCode
+                        },
+                        dataType: 'json',
+
+                        success: function(response) {
+                            if (response.status === 'success' && response.wards && response.wards.length > 0) {
+                                const $select = $('#ward');
+                                $select.empty();
+                                $select.append('<option value="">Chọn phường/xã</option>');
+                                $.each(response.wards, function(index, ward) {
+                                    $select.append(`<option value="${ward.code}">${ward.name}</option>`);
+                                });
+                                $select.prop('disabled', false);
+                            } else {
+                                showToast(response.message || 'Không lấy được danh sách phường/xã', 'error');
+                                $('#ward').html('<option value="">Không có dữ liệu</option>').prop('disabled', true);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            showToast('Lỗi khi lấy phường/xã: ' + error, 'error');
+                            $('#ward').html('<option value="">Lỗi tải dữ liệu</option>').prop('disabled', true);
+                        }
+                    });
+                }
+            });
+
+            $('#ward').on('change', function() {
+                selectedWard = $(this).val() ? $(this).find('option:selected').text() : '';
+                updateFullAddress();
+            });
+
+            $('#street').on('input', function() {
+                street = $(this).val().trim();
+                updateFullAddress();
+            });
+        }
+    });
+</script>
+
+<script>
+    // checkout
+    $(document).ready(function() {
+
+        $('#checkoutForm').on('submit', function(e) {
+            e.preventDefault();
+            var paymentMethod = $('input[name="payment"]:checked').val();
+
+            if (paymentMethod === 'cod') {
+                var $btn = $('.btn-checkout-cod button');
+                $btn.prop('disabled', true).text('Đang xử lý...');
+
+                // Lấy dữ liệu từ input
+                var formData = {
+                    phone: $('#phone').val().trim(),
+                    email: $('#email').val().trim(),
+                    full_address: $('#full_address').val().trim(),
+                    payment: paymentMethod,
+                    checkout_cod: true
+                };
+
+                if (!formData.phone || !formData.email || !formData.full_address) {
+                    $btn.prop('disabled', false).text('Đặt Hàng');
+                    showToast('Vui lòng điền đầy đủ thông tin', 'error');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/dao/ajax/checkout_ajax.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        $btn.prop('disabled', true).text('Đang xử lý...');
+                        if (response.status === 'success') {
+                            showToast(response.message, 'success');
+                            setTimeout(() => {
+                                window.location.href = 'index.php?pg=orders';
+                            }, 2000);
+                        } else {
+                            showToast(response.message, 'error');
+                            $btn.prop('disabled', false).text('Đặt Hàng');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $btn.prop('disabled', false).text('Đặt Hàng');
+                        showToast('Lỗi khi đặt hàng: ' + error, 'error');
+                    }
+                });
+            }
+
+
+            if (paymentMethod === 'vnpay') {
+                var $btn = $('.btn-checkout-vnpay button');
+                $btn.prop('disabled', true).text('Đang xử lý...');
+
+                // Lấy dữ liệu từ input
+                var formData = {
+                    phone: $('#phone').val().trim(),
+                    email: $('#email').val().trim(),
+                    full_address: $('#full_address').val().trim(),
+                    payment: paymentMethod,
+                    checkout_cod: true
+                };
+
+                if (!formData.phone || !formData.email || !formData.full_address) {
+                    $btn.prop('disabled', false).text('Thanh toán');
+                    showToast('Vui lòng điền đầy đủ thông tin', 'error');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/vnpay_php/vnpay_create_payment.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success' && response.url) {
+                            showToast(response.message, 'success');
+                            window.location.href = response.url;
+                        } else {
+                            console.log(">>> error: ", response.message);
+                            showToast(response.message, 'error');
+                            $btn.prop('disabled', false).text('Thanh toán');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(">>> error: ", error);
+                        $btn.prop('disabled', false).text('Thanh toán');
+                        showToast('Lỗi khi đặt hàng: ' + error, 'error');
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    function showToast(message, type = 'success') {
+        if ($('#toast-container .toast').length >= 1) {
             $('#toast-container .toast').first().remove();
         }
 
-        // Tạo ID duy nhất cho toast
-        var randomInt = Math.floor(Math.random() * 10000);
-        toastId = 'toast-' + new Date().getTime() + '-' + randomInt;
+        let randomInt = Math.floor(Math.random() * 10000);
+        let toastId = 'toast-' + new Date().getTime() + '-' + randomInt;
 
-        var toastHtml = `
-            <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-                <div class="toast-header">
-                    <strong class="mr-auto ${type === 'success' ? 'text-success' : 'text-danger'}">${type === 'success' ? 'Thông báo' : 'Lỗi'}</strong>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="toast-body">
-                    ${message}
-                </div>
+        let typeClass = 'text-success';
+        let title = 'Thông báo';
+
+        switch (type) {
+            case 'error':
+                typeClass = 'text-danger';
+                title = 'Lỗi';
+                break;
+            case 'warning':
+                typeClass = 'text-warning';
+                title = 'Cảnh báo';
+                break;
+            case 'success':
+            default:
+                typeClass = 'text-success';
+                title = 'Thông báo';
+                break;
+        }
+
+        let toastHtml = `
+        <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+            <div class="toast-header">
+                <strong class="mr-auto ${typeClass}">${title}</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
-        `;
+            <div class="toast-body">
+                ${message}
+            </div>
+        </div>
+    `;
 
-        // Thêm toast vào container
         $('#toast-container').append(toastHtml);
-
-        // Hiển thị toast
         $('#' + toastId).toast('show');
 
-        // Xóa toast khỏi DOM sau khi ẩn
         $('#' + toastId).on('hidden.bs.toast', function() {
             $(this).remove();
         });

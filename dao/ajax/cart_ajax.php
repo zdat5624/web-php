@@ -21,6 +21,26 @@ if (isset($_POST['add_to_cart'])) {
         $cart = createCart($user_id);
     }
 
+    $sql = "SELECT * FROM vnpay_check WHERE cart_id = ? AND vnpay_ResponseCode IS NULL ORDER BY id DESC";
+    $vnpay_check = pdo_query_one($sql, $cart['id']);
+
+    if ($vnpay_check) {
+        $expired_at = new DateTime($vnpay_check['expired_at'], new DateTimeZone('Asia/Ho_Chi_Minh'));
+        $now = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+
+        if ($expired_at > $now) {
+            $interval = $now->diff($expired_at);
+            $remaining_minutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
+            $remaining_seconds = $interval->s;
+
+            echo json_encode([
+                'status' => 'warning',
+                'message' => "Bạn có giao dịch VNPay đang chờ xử lý, còn $remaining_minutes phút $remaining_seconds giây. Vui lòng hoàn tất, hủy hoặc đợi hết hạn thanh toán VNPAY trước khi thêm sản phẩm mới."
+            ]);
+            exit();
+        }
+    }
+
     // Thêm sản phẩm vào chi tiết giỏ
     addToCartDetail($cart['id'], $product_id, $quantity);
 
@@ -106,6 +126,26 @@ if (isset($_POST['remove_cart_item'])) {
     if (!$cart) {
         echo json_encode(['status' => 'error', 'message' => 'Giỏ hàng không tồn tại!']);
         exit();
+    }
+
+    $sql = "SELECT * FROM vnpay_check WHERE cart_id = ? AND vnpay_ResponseCode IS NULL ORDER BY id DESC";
+    $vnpay_check = pdo_query_one($sql, $cart['id']);
+
+    if ($vnpay_check) {
+        $expired_at = new DateTime($vnpay_check['expired_at'], new DateTimeZone('Asia/Ho_Chi_Minh'));
+        $now = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+
+        if ($expired_at > $now) {
+            $interval = $now->diff($expired_at);
+            $remaining_minutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
+            $remaining_seconds = $interval->s;
+
+            echo json_encode([
+                'status' => 'warning',
+                'message' => "Bạn có giao dịch VNPay đang chờ xử lý, còn $remaining_minutes phút $remaining_seconds giây. Vui lòng hoàn tất, hủy hoặc đợi hết hạn thanh toán VNPAY trước khi xóa."
+            ]);
+            exit();
+        }
     }
 
     $sql = "DELETE FROM cart_detail WHERE id = ? AND cart_id = ?";

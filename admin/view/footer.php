@@ -56,6 +56,44 @@
             <script src="layout/js/demo/chart-area-demo.js"></script>
             <script src="layout/js/demo/chart-pie-demo.js"></script>
 
+            <!-- AJAX update order -->
+            <script>
+                $(document).ready(function() {
+                    $('.update-order-btn').on('click', function() {
+                        var orderId = $(this).data('id');
+                        var orderStatus = $(this).data('status');
+                        var orderNote = $(this).data('note');
+
+                        $('#orderId').val(orderId);
+                        $('#orderStatus').val(orderStatus);
+                        $('#orderNote').val(orderNote);
+                    });
+
+                    $('#saveOrderBtn').on('click', function() {
+                        var formData = $('#updateOrderForm').serialize();
+
+                        $.ajax({
+                            url: 'update_order.php',
+                            type: 'POST',
+                            data: formData,
+                            dataType: 'json',
+                            success: function(response) {
+                                if (response.success) {
+                                    alert('Cập nhật đơn hàng thành công!');
+                                    location.reload();
+                                } else {
+                                    alert('Lỗi: ' + response.message);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                alert('Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại.');
+                                console.log(xhr.responseText);
+                            }
+                        });
+                    });
+                });
+            </script>
+
             </body>
 
             </html>

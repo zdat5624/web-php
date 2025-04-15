@@ -4060,7 +4060,7 @@ input[type="button"].btn-block {
 .custom-select {
   display: inline-block;
   width: 100%;
-  height: calc(1.5em + 0.75rem + 2px);
+  height: calc(1.5em+ 0.75rem + 2px);
   padding: 0.375rem 1.75rem 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -10901,11 +10901,69 @@ a.text-dark:focus {
 }
 
 .toast-header {
-  background-color: #e9f7ef;
+  /* background-color: #e9f7ef; */
   border-bottom: 1px solid #d4edda;
 }
 
 .toast-body {
   background-color: #ffffff;
-  color: #155724;
+  /* color: #155724; */
+}
+
+.custom-control-label-checkout {
+  cursor: pointer;
+}
+
+.custom-control-label-checkout img {
+  vertical-align: middle;
+}
+
+.custom-control-label-checkout i {
+  font-size: 18px;
+  color: #28a745;
+  /* Màu xanh lá cây cho icon COD */
+  margin-right: 8px;
+}
+
+@media (max-width: 576px) {
+  .custom-control-label-checkout img {
+    width: 50px;
+    /* Thu nhỏ logo VNPay trên mobile */
+  }
+}
+
+.product-row.product-row-checkout {
+  display: flex;
+  align-items: center;
+}
+
+.product-name.product-name-checkout {
+  flex: 1;
+  margin-right: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-quantity.product-quantity-checkout {
+  flex: 0 0 50px;
+  /* Tăng độ rộng để đủ chỗ cho "Số lượng" */
+  text-align: center;
+  margin-right: 10px;
+  white-space: nowrap;
+  /* Ngăn xuống dòng */
+}
+
+.product-price.product-price-checkout {
+  flex: 0 0 100px;
+  text-align: right;
+}
+
+.card-body p {
+  margin: 0;
+  font-weight: normal;
+}
+
+.card-body .font-weight-medium {
+  font-weight: normal;
 }

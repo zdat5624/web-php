@@ -9,22 +9,22 @@
     <meta name="description" content="XLaptopshop - Chuyên cung cấp các dòng laptop chính hãng, laptop gaming, laptop đồ họa, laptop văn phòng với giá tốt nhất. Mua laptop uy tín, bảo hành dài hạn, giao hàng tận nơi.">
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="57x57" href="../favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-    <link rel="manifest" href="../favicon/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="../favicon/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
     <!-- Google Web Fonts -->
@@ -82,7 +82,7 @@
             </div>
             <div class="col-lg-6 col-6 text-left">
             </div>
-            <div class="col-lg-3 col-6 text-right">
+            <div class="col-lg-3 col-6 text-right " id="cart-icon">
                 <!-- <a href="" class="btn border">
                     <i class="fas fa-heart text-primary"></i>
                     <span class="badge">0</span>
@@ -141,7 +141,7 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.php" class="nav-item nav-link <?= !isset($_GET['pg'])   ? 'active' : '' ?> ">Home</a>
+                            <a href="index.php" class="nav-item nav-link <?= !isset($_GET['pg'])   ? 'active' : '' ?> ">Trang chủ</a>
                             <a href="index.php?pg=products" class="nav-item nav-link <?= isset($_GET['pg']) && $_GET['pg'] === 'products' ? 'active' : '' ?>">Sản phẩm</a>
                             <!-- <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -162,8 +162,9 @@
                                             <div class="dropdown-menu rounded-0 m-0">
                                                 <a href="/admin/" class="dropdown-item">Trang quản trị</a>
                                                 <a href="index.php?pg=profile" class="dropdown-item">Thông tin cá nhân</a>
-                                                <a href="index.php?pg=orders" class="dropdown-item">Đơn hàng</a>
-                                                <a href="index.php?pg=cart" class="dropdown-item">Giỏ hàng</a>
+                                                <a href="index.php?pg=orders" class="dropdown-item">Đơn hàng của bạn</a>
+                                                <a href="index.php?pg=cart" class="dropdown-item">Giỏ hàng của bạn</a>
+                                                <a href="index.php?pg=change_password" class="dropdown-item">Đổi mật khẩu</a>
                                                 <a href="index.php?pg=logout" class="dropdown-item">Đăng xuất</a>
                                             </div>
                                         </div>';
@@ -174,8 +175,9 @@
                                             <a href="#" class="nav-link" data-toggle="dropdown">Xin chào, ' . $_SESSION['user']['name'] . '<i class="fas fa-user-cog ml-2"></i></i></a>
                                             <div class="dropdown-menu rounded-0 m-0">
                                                 <a href="index.php?pg=profile" class="dropdown-item">Thông tin cá nhân</a>
-                                                <a href="index.php?pg=orders" class="dropdown-item">Đơn hàng</a>
-                                                <a href="index.php?pg=cart" class="dropdown-item">Giỏ hàng</a>
+                                                <a href="index.php?pg=orders" class="dropdown-item">Đơn hàng của bạn</a>
+                                                <a href="index.php?pg=cart" class="dropdown-item">Giỏ hàng của bạn</a>
+                                                <a href="index.php?pg=change_password" class="dropdown-item">Đổi mật khẩu</a>
                                                 <a href="index.php?pg=logout" class="dropdown-item">Đăng xuất</a>
                                             </div>
                                         </div>';
@@ -183,7 +185,7 @@
                                 // Hiển thị liên kết Đăng nhập và Đăng ký khi chưa đăng nhập
                                 echo '
                                     <a href="#" class="nav-item nav-link" data-toggle="modal" data-target="#loginModal">Đăng nhập</a>
-                                    <a href="#" class="nav-item nav-link">Đăng ký</a>';
+                                    <a href="index.php?pg=register" class="nav-item nav-link">Đăng ký</a>';
                             }
                             ?>
                         </div>

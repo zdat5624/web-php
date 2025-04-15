@@ -1,5 +1,6 @@
 <?php
 ob_start();
+session_start();
 require_once "../dao/pdo.php";
 include "../dao/global.php";
 
@@ -7,6 +8,7 @@ include "../dao/product.php";
 include "../dao/user.php";
 include "../dao/category.php";
 include "../dao/brand.php";
+include "../dao/order.php";
 
 include "view/header.php";
 
@@ -17,6 +19,29 @@ if (!isset($_GET['pg'])) {
     include "view/home.php";
 } else {
     switch ($_GET['pg']) {
+
+        /* COntroller order*/
+        case 'orders':
+            $pageSize = 10;
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $offset = ($current_page - 1) * $pageSize;
+
+            // Lọc
+            $status = isset($_GET['status']) ? $_GET['status'] : null;
+            $search = isset($_GET['search']) ? $_GET['search'] : null;
+
+            // Sắp xếp
+            $sort = isset($_GET['sort']) && is_string($_GET['sort']) ? $_GET['sort'] : 'id';
+            $order = isset($_GET['order']) && is_string($_GET['order']) ? $_GET['order'] : 'DESC';
+            // Phân trang
+            $total_orders = getTotalOrdersWithFilters($status, $search);
+            $total_pages = ceil($total_orders / $pageSize);
+
+            // Danh sách đơn hàng
+            $orders = getOrdersWithFilters($pageSize, $offset, $status, $search, $sort, $order);
+
+            include "view/order/orders.php";
+            break;
 
         /* Controller user */
         case 'users':

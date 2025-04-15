@@ -65,3 +65,48 @@ function user_login($username, $password)
     }
     return false;
 }
+
+
+function checkEmailExists($email, $excludeId)
+{
+    $sql = "SELECT id FROM users WHERE email = ? AND id != ?";
+    $user = pdo_query_one($sql, $email, $excludeId);
+    return $user !== false;
+}
+
+function updateUserProfile($id, $name, $address, $phone)
+{
+    $sql = "UPDATE users
+            SET name = ?, address = ?, phone = ?
+            WHERE id = ?";
+    pdo_execute($sql, $name, $address, $phone, $id);
+}
+
+
+function checkUserPassword($id, $password)
+{
+    $sql = "SELECT password FROM users WHERE id = ?";
+    $user = pdo_query_one($sql, $id);
+    if ($user && $user['password'] === $password) {
+        return true;
+    }
+    return false;
+}
+
+function updateUserPassword($id, $password)
+{
+    $sql = "UPDATE users SET password = ? WHERE id = ?";
+    pdo_execute($sql, $password, $id);
+}
+
+function registerUser($email, $password, $name, $address, $phone)
+{
+    $role = 'USER';
+    $sql = "INSERT INTO users (email, password, name, address, phone, role)
+            VALUES (?, ?, ?, ?, ?, ?)";
+    pdo_execute($sql, $email, $password, $name, $address, $phone, $role);
+
+
+    $sql = "SELECT * FROM users WHERE email = ?";
+    return pdo_query_one($sql, $email);
+}

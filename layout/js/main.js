@@ -100,5 +100,38 @@
         button.parent().parent().find('input').val(newVal);
     });
 
+    function togglePaymentButtons() {
+        // Ẩn cả hai nút trước
+        $('.btn-checkout-cod').hide();
+        $('.btn-checkout-vnpay').hide();
+
+        // Hiển thị nút tương ứng
+        if ($('#cod').is(':checked')) {
+            $('.btn-checkout-cod').show();
+        } else if ($('#vnpay').is(':checked')) {
+            $('.btn-checkout-vnpay').show();
+        }
+    }
+
+    // Gọi khi trang tải
+    $(document).ready(function () {
+        togglePaymentButtons();
+
+        // Lắng nghe sự kiện change
+        $('input[name="payment"]').on('change', function () {
+            togglePaymentButtons();
+        });
+    });
+
+    // Xử lý mọi trường hợp hiển thị trang
+    $(window).on('pageshow', function () {
+        togglePaymentButtons();
+    });
+
+    // Fallback cho middle-click hoặc các trường hợp khác
+    $(window).on('load', function () {
+        setTimeout(togglePaymentButtons, 0);
+    });
+
 })(jQuery);
 
