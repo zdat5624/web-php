@@ -1,5 +1,11 @@
 <div class="container mt-5">
-    <h2 class="text-primary">Cập nhật thương hiệu</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary">Sửa thương hiệu</h2>
+        <a href="index.php?pg=brands" class="btn btn-outline-secondary">
+            ← Quay lại
+        </a>
+    </div>
     <form action="index.php?pg=handleupdatebrand" method="POST">
 
         <input type="hidden" name="id" value="<?= $brand['id'] ?>">

@@ -307,6 +307,108 @@
     });
 </script>
 
+<!-- AJAX forgot password -->
+<script>
+    $(document).ready(function() {
+        $('#forgotPasswordForm').on('submit', function(e) {
+            e.preventDefault();
+
+            var formData = {
+                email: $('#email').val().trim(),
+                forgot_password: true
+            };
+
+            if (!formData.email) {
+                $('#alert-message').html(
+                    '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                    'Vui lòng nhập email.' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+                );
+                return;
+            }
+
+            var $btn = $('button[type="submit"]');
+            $btn.prop('disabled', true).text('Đang xử lý...');
+
+            $.ajax({
+                url: '/dao/ajax/forgot_password_ajax.php',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    $('#alert-message').html(
+                        '<div class="alert alert-' + (response.status === 'success' ? 'success' : 'danger') + ' alert-dismissible fade show" role="alert">' +
+                        response.message
+                    );
+                    if (response.status === 'success') {
+                        $('#forgotPasswordForm')[0].reset();
+                    }
+                    $btn.prop('disabled', false).text('Gửi');
+                },
+                error: function() {
+                    $('#alert-message').html(
+                        '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        'Đã có lỗi xảy ra. Vui lòng thử lại sau.'
+                    );
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#resetPasswordForm').on('submit', function(e) {
+            e.preventDefault();
+
+            var formData = {
+                email: $('#email').val(),
+                token: $('#token').val(),
+                new_password: $('#new_password').val().trim(),
+                confirm_password: $('#confirm_password').val().trim(),
+                reset_password: true
+            };
+
+            var $btn = $('button[type="submit"]');
+            $btn.prop('disabled', true).text('Đang xử lý...');
+
+            $.ajax({
+                url: '/dao/ajax/reset_password_ajax.php',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    $btn.prop('disabled', false).text('Đặt lại mật khẩu');
+
+                    if (response.status === 'success') {
+                        $('#resetPasswordForm')[0].reset();
+                        setTimeout(function() {
+                            window.location.href = 'index.php';
+                        }, 2500);
+                        $('#alert-message-success').html(
+                            '<div class="alert alert-' + (response.status === 'success' ? 'success' : 'danger') + '">' +
+                            response.message +
+                            '</div>'
+                        );
+                    } else {
+                        $('#alert-message-error').html(
+                            '<div class="alert alert-' + (response.status === 'success' ? 'success' : 'danger') + '">' +
+                            response.message +
+                            '</div>'
+                        );
+                    }
+                },
+                error: function() {
+                    $btn.prop('disabled', false).text('Đặt lại mật khẩu');
+                    $('#alert-message-error').html(
+                        '<div class="alert alert-danger">Đã có lỗi xảy ra. Vui lòng thử lại sau.</div>'
+                    );
+                }
+            });
+        });
+    });
+</script>
+
 <script>
     $(document).ready(function() {
         function updateCartCount() {
@@ -775,7 +877,7 @@
         }
 
         let toastHtml = `
-        <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="750">
             <div class="toast-header">
                 <strong class="mr-auto ${typeClass}">${title}</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">

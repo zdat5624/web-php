@@ -7,8 +7,8 @@
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
+            <thead class="table-header-blue">
+
                 <tr>
                     <th>
                         <a href="index.php?pg=brands&sort=id&order=<?= $sort == 'id' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
@@ -61,10 +61,10 @@
                             ?>
                         </a>
                     </th>
+                    <th class="text-center">Hiển thị</th>
+                    <th class="text-center">Thao tác</th>
+                </tr>
 
-                    <th>Thao tác</th>
-                </tr>
-                </tr>
             </thead>
             <tbody>
                 <?php foreach ($brands as $brand) : ?>
@@ -72,7 +72,13 @@
                         <td><?= $brand['id'] ?></td>
                         <td><?= $brand['name'] ?></td>
                         <td><?= $brand['order_number'] ?></td>
-                        <td>
+                        <td class="checkbox-cell">
+                            <input type="checkbox" class="toggle-visibility"
+                                data-id="<?= $brand['id'] ?>"
+                                data-type="brand"
+                                <?= $brand['is_visible'] ? 'checked' : '' ?>>
+                        </td>
+                        <td class="text-center">
                             <a href="index.php?pg=updatebrand&id=<?= $brand['id'] ?>">
                                 <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
                             </a>

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Kiểm tra email đã tồn tại
-    if (checkEmailExists($email, 0)) {
+    if (checkEmailExists($email)) {
         echo json_encode(['status' => 'error', 'message' => 'Email đã được sử dụng.']);
         exit();
     }

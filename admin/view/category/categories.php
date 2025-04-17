@@ -7,8 +7,8 @@
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
+            <thead class="table-header-blue">
+
                 <tr>
                     <th>
                         <a href="index.php?pg=categories&sort=id&order=<?= $sort == 'id' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
@@ -61,9 +61,10 @@
                             ?>
                         </a>
                     </th>
-                    <th>Thao tác</th>
+                    <th class="text-center">Hiển thị</th>
+                    <th class="text-center">Thao tác</th>
                 </tr>
-                </tr>
+
             </thead>
             <tbody>
                 <?php foreach ($categories as $category) : ?>
@@ -71,7 +72,13 @@
                         <td><?= $category['id'] ?></td>
                         <td><?= $category['name'] ?></td>
                         <td><?= $category['order_number'] ?></td>
-                        <td>
+                        <td class="checkbox-cell">
+                            <input type="checkbox" class="toggle-visibility"
+                                data-id="<?= $category['id'] ?>"
+                                data-type="category"
+                                <?= $category['is_visible'] ? 'checked' : '' ?>>
+                        </td>
+                        <td class="text-center">
                             <a href="index.php?pg=updatecategory&id=<?= $category['id'] ?>">
                                 <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
                             </a>

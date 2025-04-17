@@ -65,12 +65,12 @@ function getOrdersByUserId($user_id)
     return pdo_query($sql, $user_id);
 }
 
-function getOrderById($order_id, $user_id)
+function getOrderById($order_id)
 {
     $sql = "SELECT *
             FROM orders
-            WHERE id = ? AND user_id = ?";
-    return pdo_query_one($sql, $order_id, $user_id);
+            WHERE id = ? ";
+    return pdo_query_one($sql, $order_id);
 }
 
 function getOrderDetails($order_id)
@@ -145,5 +145,54 @@ function getOrdersWithFilters($pageSize, $offset, $status = null, $search = null
 function updateOrderStatus($order_id, $status, $note)
 {
     $sql = "UPDATE orders SET status = ?, note = ? WHERE id = ?";
-    return pdo_execute($sql, $status, $note, $order_id);
+    pdo_execute($sql, $status, $note, $order_id);
+}
+
+function getMonthlyRevenue()
+{
+    $current_month = date('Y-m');
+    return pdo_query_value("SELECT SUM(total_price) FROM orders WHERE DATE_FORMAT(created_at, '%Y-%m') = ? AND status = 'completed'", $current_month) ?: 0;
+}
+
+function getYearlyRevenue()
+{
+    $current_year = date('Y');
+    return pdo_query_value("SELECT SUM(total_price) FROM orders WHERE YEAR(created_at) = ? AND status = 'completed'", $current_year) ?: 0;
+}
+
+function getPendingOrders()
+{
+    return pdo_query_value("SELECT COUNT(*) FROM orders WHERE status = 'pending'") ?: 0;
+}
+
+
+function getRevenueByMonth()
+{
+    $year = date('Y');
+
+
+    $sql = "SELECT MONTH(created_at) AS month, SUM(total_price) AS revenue
+            FROM orders
+            WHERE YEAR(created_at) = ? AND status = 'completed'
+            GROUP BY MONTH(created_at)";
+    $results = pdo_query($sql, $year);
+
+    $monthly_revenue = array_fill(0, 12, 0);
+
+    foreach ($results as $row) {
+        $month = (int)$row['month'];
+        $revenue = (int)$row['revenue'];
+        $monthly_revenue[$month - 1] = $revenue;
+    }
+
+
+    return $monthly_revenue;
+}
+
+function getProductByCategory()
+{
+    return pdo_query("SELECT c.name, COUNT(*) as total_quantity
+                      FROM products p
+                      JOIN categories c ON p.category_id = c.id
+                      GROUP BY c.id, c.name");
 }

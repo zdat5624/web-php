@@ -1,3 +1,57 @@
+<?php
+$page_title = 'XLaptopshop';
+if (!isset($_GET['pg'])) {
+    $page_title = 'Dashboard | XLaptopshop';
+} else {
+    switch ($_GET['pg']) {
+        case  'users':
+            $page_title = 'Người dùng | XLaptopshop';
+            break;
+        case  'adduser':
+            $page_title = 'Thêm người dùng | XLaptopshop';
+            break;
+        case  'updateuser':
+            $page_title = 'Sửa người dùng | XLaptopshop';
+            break;
+        case  'categories':
+            $page_title = 'Danh mục | XLaptopshop';
+            break;
+        case  'addcategory':
+            $page_title = 'Thêm danh mục | XLaptopshop';
+            break;
+        case  'updatecategory':
+            $page_title = 'Sửa danh mục | XLaptopshop';
+            break;
+        case  'brands':
+            $page_title = 'Thương hiệu | XLaptopshop';
+            break;
+        case  'updatebrand':
+            $page_title = 'Sửa thương hiệu | XLaptopshop';
+            break;
+        case  'addbrand':
+            $page_title = 'Thêm thương hiệu | XLaptopshop';
+            break;
+        case  'products':
+            $page_title = 'Sản phẩm | XLaptopshop';
+            break;
+        case  'addproduct':
+            $page_title = 'Thêm sản phẩm | XLaptopshop';
+            break;
+        case  'updateproduct':
+            $page_title = 'Sửa sản phẩm | XLaptopshop';
+            break;
+        case  'orders':
+            $page_title = 'Đơn hàng | XLaptopshop';
+            break;
+        case  'orderdetail':
+            $page_title = 'Chi tiết đơn hàng | XLaptopshop';
+            break;
+    }
+}
+
+
+?>
+
 <html lang="en">
 
 <head>
@@ -5,28 +59,28 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="keywords" content="XLaptopshop, laptop, mua laptop, bán laptop, laptop giá rẻ, laptop gaming, laptop văn phòng, laptop đồ họa, laptop AI, cửa hàng laptop, laptop chính hãng, laptop mới">
+    <meta name="description" content="XLaptopshop - Chuyên cung cấp các dòng laptop chính hãng, laptop gaming, laptop đồ họa, laptop văn phòng với giá tốt nhất. Mua laptop uy tín, bảo hành dài hạn, giao hàng tận nơi.">
 
-    <title>Admin Pages</title>
+    <title><?= $page_title ?></title>
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/favicon/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="../favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="../favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
     <!-- Custom fonts for this template-->
@@ -325,7 +379,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="../index.php?pg=profile">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Hồ sơ cá nhân
                                 </a>

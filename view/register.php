@@ -46,8 +46,10 @@
                                 <label for="address" class="form-label">Địa chỉ</label>
                                 <input type="text" class="form-control" id="address" name="address" required>
                             </div>
+                            <div class="text-right"><a href="index.php?pg=forgot_password">Quên mật khẩu?</a></div>
+
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Đăng ký</button>
+                                <button type="submit" class="btn btn-primary px-4">Đăng ký</button>
                             </div>
                         </form>
                         <p class="text-center mt-3">Đã có tài khoản? <a href="#" data-toggle="modal" data-target="#loginModal">Đăng nhập ngay</a></p>

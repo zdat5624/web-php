@@ -12,9 +12,27 @@ include "../dao/order.php";
 
 include "view/header.php";
 
-//index.php?pg=products
+if (!isset($_SESSION['user'])) {
+    header("Location: ../index.php");
+    exit();
+}
+
+
+if ($_SESSION['user']['role'] !== 'ADMIN') {
+    header("Location: ../index.php");
+    exit();
+}
+
+
 
 if (!isset($_GET['pg'])) {
+
+    $monthly_revenue = getMonthlyRevenue();
+    $yearly_revenue = getYearlyRevenue();
+    $total_users = getTotalUsers();
+    $pending_orders = getPendingOrders();
+    $revenue_by_month = getRevenueByMonth();
+    $product_by_category = getProductByCategory();
 
     include "view/home.php";
 } else {
@@ -41,6 +59,26 @@ if (!isset($_GET['pg'])) {
             $orders = getOrdersWithFilters($pageSize, $offset, $status, $search, $sort, $order);
 
             include "view/order/orders.php";
+            break;
+
+        case 'orderdetail':
+            // Lấy order_id từ URL
+            $order_id = isset($_GET['order_id']) ? (int)$_GET['order_id'] : 0;
+
+            // Lấy thông tin đơn hàng
+            try {
+                $order = getOrderById($order_id);
+                if (!$order) {
+                    throw new Exception("Đơn hàng không tồn tại.");
+                }
+
+                $order_details = getOrderDetails($order_id);
+
+                include "view/order/orderdetail.php";
+            } catch (Exception $e) {
+                header("Location: index.php?pg=orders");
+                exit();
+            }
             break;
 
         /* Controller user */

@@ -47,7 +47,7 @@
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <!-- sort -->
-            <thead>
+            <thead class="table-header-blue">
                 <tr>
                     <th>
                         <a href="index.php?pg=products&<?= $brand_id ? "brand=$brand_id&" : '' ?><?= $category_id ? "category=$category_id&" : '' ?>sort=id&order=<?= $sort == 'id' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
@@ -83,11 +83,11 @@
                             ?>
                         </a>
                     </th>
-                    <th>Hình</th>
+                    <th class="text-center">Hình</th>
                     <th>
                         <a href="index.php?pg=products&<?= $brand_id ? "brand=$brand_id&" : '' ?><?= $category_id ? "category=$category_id&" : '' ?>sort=price&order=<?= $sort == 'price' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
                             class="sort-link <?= $sort == 'price' ? 'active' : '' ?>">
-                            Giá
+                            Giá (VNĐ)
                             <?php
                             if ($sort == 'price') {
                                 if ($order == 'ASC') {
@@ -169,7 +169,8 @@
                             ?>
                         </a>
                     </th>
-                    <th>Thao tác</th>
+                    <th class="text-center">Hiển thị</th>
+                    <th class="text-center">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
@@ -184,19 +185,25 @@
                         echo '<tr>
                                 <td>' . $product['id'] . '</td>
                                 <td>' . $product['name'] . '</td>
-                                <td>
+                                <td class="text-center">
                                     <img src="' . IMG_PATH_ADMIN . $product['image'] . '"
                                         alt="' . $product['name'] . '"
                                         width="60" height="60"
                                         style="object-fit: cover; border-radius: 5px;">
                                 </td>
-                                <td>' . number_format($product['price'], 0, ',', '.') . ' VND</td>
+                                <td>' . number_format($product['price'], 0, ',', '.') . '</td>
 
                                 <td>' . $product['view'] . '</td>
                                 <td>' . $product['sold'] . '</td>
                                 <td>' . $product['brand_name'] . '</td>
                                 <td>' . $product['category_name'] . '</td>
-                                <td>
+                                <td class="checkbox-cell">
+                                    <input type="checkbox" class="toggle-visibility"
+                                        data-id="' . $product['id'] . '"
+                                        data-type="product"
+                                        ' . ($product['is_visible'] ? 'checked' : '') . '>
+                                </td>
+                                <td class="text-center">
                                     <a href="index.php?pg=updateproduct&id=' . $product['id'] . '">
                                         <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
                                     </a>

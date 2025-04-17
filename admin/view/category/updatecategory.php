@@ -1,5 +1,11 @@
 <div class="container mt-5">
-    <h2 class="text-primary">Sửa danh mục</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary">Sửa danh mục</h2>
+        <a href="index.php?pg=categories" class="btn btn-outline-secondary">
+            ← Quay lại
+        </a>
+    </div>
     <form action="index.php?pg=handleupdatecategory" method="POST">
         <input type="hidden" name="id" value="<?= $category['id']; ?>">
 

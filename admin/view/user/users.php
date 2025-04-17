@@ -8,7 +8,7 @@
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
-            <thead>
+            <thead class="table-header-blue">
                 <tr>
                     <th>
                         <a href="index.php?pg=users&sort=id&order=<?= $sort == 'id' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
@@ -113,7 +113,7 @@
                             ?>
                         </a>
                     </th>
-                    <th>Thao tác</th>
+                    <th class="text-center">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
@@ -126,7 +126,7 @@
                         <td><?= $user['address'] ?></td>
                         <td><?= $user['phone'] ?></td>
                         <td><?= $user['role'] ?></td>
-                        <td>
+                        <td class="text-center">
                             <a href="index.php?pg=updateuser&id=<?= $user['id'] ?>">
                                 <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
                             </a>

@@ -1,5 +1,11 @@
 <div class="container mt-5">
-    <h2 class="text-primary">Thêm danh mục</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary">Thêm danh mục</h2>
+        <a href="index.php?pg=categories" class="btn btn-outline-secondary">
+            ← Quay lại
+        </a>
+    </div>
     <form action="index.php?pg=addcategory" method="POST">
         <div class="mb-3">
             <label class="form-label">Tên danh mục</label>

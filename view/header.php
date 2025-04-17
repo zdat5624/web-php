@@ -1,9 +1,42 @@
+<?php
+$page_title = 'XLaptopshop';
+if (!isset($_GET['pg'])) {
+    $page_title = 'Trang chủ | XLaptopshop';
+} else {
+    switch ($_GET['pg']) {
+        case  'products':
+            $page_title = 'Sản phẩm | XLaptopshop';
+            break;
+        case  'contact':
+            $page_title = 'Liện hệ  | XLaptopshop';
+            break;
+        case  'profile':
+            $page_title = 'Thông tin cá nhân  | XLaptopshop';
+            break;
+        case  'cart':
+            $page_title = 'Giỏ hàng  | XLaptopshop';
+            break;
+        case  'orders':
+            $page_title = 'Đơn hàng  | XLaptopshop';
+            break;
+        case  'change_password':
+            $page_title = 'Đổi mật khẩu  | XLaptopshop';
+            break;
+        case  'register':
+            $page_title = 'Đăng ký  | XLaptopshop';
+            break;
+    }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>XLaptopshop</title>
+    <title><?= $page_title ?></title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="keywords" content="XLaptopshop, laptop, mua laptop, bán laptop, laptop giá rẻ, laptop gaming, laptop văn phòng, laptop đồ họa, laptop AI, cửa hàng laptop, laptop chính hãng, laptop mới">
     <meta name="description" content="XLaptopshop - Chuyên cung cấp các dòng laptop chính hãng, laptop gaming, laptop đồ họa, laptop văn phòng với giá tốt nhất. Mua laptop uy tín, bảo hành dài hạn, giao hàng tận nơi.">
@@ -123,7 +156,7 @@
                     <div class="navbar-nav w-100 overflow-y-auto">
                         <?php
                         foreach ($categories as $category) {
-                            echo '<a href="" class="nav-item nav-link">' . $category['name'] . '</a>';
+                            echo '<a href="index.php?pg=products&category=' . $category['id'] . '" class="nav-item nav-link">' . $category['name'] . '</a>';
                         }
                         ?>
                     </div>
@@ -217,6 +250,7 @@
                             <label for="password">Mật khẩu</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
+                        <div class="text-right mb-2"><a href="index.php?pg=forgot_password">Quên mật khẩu?</a></div>
                         <button type="submit" name="login" class="btn btn-primary btn-block">Đăng nhập</button>
                     </form>
                     <p class="text-center mt-3">Chưa có tài khoản? <a href="index.php?pg=register">Đăng ký ngay</a></p>

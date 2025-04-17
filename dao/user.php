@@ -67,11 +67,18 @@ function user_login($username, $password)
 }
 
 
-function checkEmailExists($email, $excludeId)
+function checkEmailExists($email)
 {
-    $sql = "SELECT id FROM users WHERE email = ? AND id != ?";
-    $user = pdo_query_one($sql, $email, $excludeId);
+    $sql = "SELECT id FROM users WHERE email = ? ";
+    $user = pdo_query_one($sql, $email);
     return $user !== false;
+}
+
+function getUserByEmail($email)
+{
+    $sql = "SELECT * FROM users WHERE email = ? ";
+    $user = pdo_query_one($sql, $email);
+    return $user;
 }
 
 function updateUserProfile($id, $name, $address, $phone)

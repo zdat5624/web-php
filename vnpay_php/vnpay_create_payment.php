@@ -63,7 +63,7 @@ if ($vnpay_check) {
     exit;
 }
 
-$vnp_TxnRef = rand(1, 100000); //Mã giao dịch thanh toán tham chiếu của merchant
+$vnp_TxnRef = rand(1, 99999999); //Mã giao dịch thanh toán tham chiếu của merchant
 $vnp_Amount = $cart['total_price']; // Số tiền thanh toán
 $vnp_Locale = 'vn'; //Ngôn ngữ chuyển hướng thanh toán
 $vnp_BankCode = 'VNBANK'; //Mã phương thức thanh toán

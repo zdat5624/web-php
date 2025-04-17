@@ -1,5 +1,10 @@
 <div class="container mt-5">
-    <h2 class="text-primary">Sửa sản phẩm</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary mb-0">Sửa sản phẩm</h2>
+        <a href="index.php?pg=products" class="btn btn-outline-secondary">
+            ← Quay lại
+        </a>
+    </div>
     <form action="index.php?pg=handleupdateproduct" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= $product['id'] ?>">
 

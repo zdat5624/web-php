@@ -9,16 +9,19 @@ require_once "dao/brand.php";
 require_once "dao/cart.php";
 require_once "dao/vnpay_check.php";
 require_once "dao/order.php";
+require_once "dao/user.php";
+require_once "dao/verify_token.php";
 require_once "dao/global.php";
 
 
-$categories = getAllCategories();
+$categories = getAllCategoriesForUser();
 include "view/header.php";
 
 if (!isset($_GET['pg'])) {
+    $page_title = 'Trang chủ | XLaptopshop';
     $newProducts = getNewProducts();
     $bestSellingProducts = getBestSellingProducts();
-    $brands = getAllBrands();
+    $brands = getAllBrandsForUser();
     include "view/home.php";
 } else {
     switch ($_GET['pg']) {
@@ -32,7 +35,6 @@ if (!isset($_GET['pg'])) {
             break;
 
         case 'profile':
-            $current_page = 'profile';
             if (!isset($_SESSION['user'])) {
                 header("Location: index.php");
                 exit();
@@ -40,8 +42,18 @@ if (!isset($_GET['pg'])) {
             include "view/profile.php";
             break;
 
+        case 'forgot_password':
+
+            include "view/forgot_password.php";
+            break;
+
+        case 'reset_password':
+
+
+            include "view/reset_password.php";
+            break;
+
         case 'change_password':
-            $current_page = 'change_password';
             if (!isset($_SESSION['user'])) {
                 header("Location: index.php");
                 exit();
@@ -50,7 +62,6 @@ if (!isset($_GET['pg'])) {
             break;
 
         case 'register':
-            $current_page = 'register';
             include "view/register.php";
             break;
 
@@ -109,8 +120,8 @@ if (!isset($_GET['pg'])) {
             $products = getProductsWithFiltersForUser($pageSize, $offset, $brand_id, $category_id, $min_price, $max_price, $sort, $keyword);
 
 
-            $brands = getAllBrands();
-            $categories = getAllCategories();
+            $brands = getAllBrandsForUser();
+            $categories = getAllCategoriesForUser();
             include "view/products.php";
             break;
 
@@ -201,7 +212,7 @@ if (!isset($_GET['pg'])) {
         default:
             $newProducts = getNewProducts();
             $bestSellingProducts = getBestSellingProducts();
-            $brands = getAllBrands();
+            $brands = getAllBrandsForUser();
             include "view/home.php";
             break;
     }

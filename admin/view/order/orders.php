@@ -20,11 +20,11 @@
                 </label>
                 <div class="btn-group d-flex flex-wrap" role="group">
                     <a href="index.php?pg=orders" class="btn btn-outline-primary flex-fill text-center <?= $status === null ||  $status === '' ? 'active' : '' ?>" style="min-width: 100px;">Tất cả</a>
-                    <a href="index.php?pg=orders&status=pending" class="btn btn-outline-primary flex-fill text-center <?= isset($_GET['status']) && $_GET['status'] == 'pending' ? 'active' : '' ?>" style="min-width: 100px;">Chờ xử lý</a>
-                    <a href="index.php?pg=orders&status=preparing" class="btn btn-outline-primary flex-fill text-center <?= isset($_GET['status']) && $_GET['status'] == 'preparing' ? 'active' : '' ?>" style="min-width: 100px;">Đang chuẩn bị</a>
-                    <a href="index.php?pg=orders&status=shipping" class="btn btn-outline-primary flex-fill text-center <?= isset($_GET['status']) && $_GET['status'] == 'shipping' ? 'active' : '' ?>" style="min-width: 100px;">Đang giao</a>
-                    <a href="index.php?pg=orders&status=completed" class="btn btn-outline-primary flex-fill text-center <?= isset($_GET['status']) && $_GET['status'] == 'completed' ? 'active' : '' ?>" style="min-width: 100px;">Hoàn thành</a>
-                    <a href="index.php?pg=orders&status=canceled" class="btn btn-outline-primary flex-fill text-center <?= isset($_GET['status']) && $_GET['status'] == 'canceled' ? 'active' : '' ?>" style="min-width: 100px;">Đã hủy</a>
+                    <a href="index.php?pg=orders&status=pending&sort=<?= $sort ?>&order=<?= $order ?>" class="btn btn-outline-primary flex-fill text-center <?= isset($_GET['status']) && $_GET['status'] == 'pending' ? 'active' : '' ?>" style="min-width: 100px;">Chờ xác nhận</a>
+                    <a href="index.php?pg=orders&status=preparing&sort=<?= $sort ?>&order=<?= $order ?>" class="btn btn-outline-primary flex-fill text-center <?= isset($_GET['status']) && $_GET['status'] == 'preparing' ? 'active' : '' ?>" style="min-width: 100px;">Đang chuẩn bị</a>
+                    <a href="index.php?pg=orders&status=shipping&sort=<?= $sort ?>&order=<?= $order ?>" class="btn btn-outline-primary flex-fill text-center <?= isset($_GET['status']) && $_GET['status'] == 'shipping' ? 'active' : '' ?>" style="min-width: 100px;">Đang giao</a>
+                    <a href="index.php?pg=orders&status=completed&sort=<?= $sort ?>&order=<?= $order ?>" class="btn btn-outline-primary flex-fill text-center <?= isset($_GET['status']) && $_GET['status'] == 'completed' ? 'active' : '' ?>" style="min-width: 100px;">Hoàn thành</a>
+                    <a href="index.php?pg=orders&status=canceled&sort=<?= $sort ?>&order=<?= $order ?>" class="btn btn-outline-primary flex-fill text-center <?= isset($_GET['status']) && $_GET['status'] == 'canceled' ? 'active' : '' ?>" style="min-width: 100px;">Đã hủy</a>
                 </div>
             </div>
 
@@ -57,7 +57,7 @@
     <!-- Bảng đơn hàng -->
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
-            <thead>
+            <thead class="table-header-blue">
                 <tr>
                     <th style="width: 5%;">
                         <a href="index.php?pg=orders&<?= isset($_GET['status']) ? "status={$_GET['status']}&" : '' ?><?= isset($_GET['search']) ? "search={$_GET['search']}&" : '' ?>sort=id&order=<?= $sort == 'id' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
@@ -72,7 +72,7 @@
                             ?>
                         </a>
                     </th>
-                    <th style="width: 15%;">
+                    <th style="width: 10%;">
                         <a href="index.php?pg=orders&<?= isset($_GET['status']) ? "status={$_GET['status']}&" : '' ?><?= isset($_GET['search']) ? "search={$_GET['search']}&" : '' ?>sort=total_price&order=<?= $sort == 'total_price' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
                             class="sort-link <?= $sort == 'total_price' ? 'active' : '' ?>">
                             Tổng giá (VNĐ)
@@ -98,7 +98,7 @@
                             ?>
                         </a>
                     </th>
-                    <th style="width: 15%;">
+                    <th style="width: 10%;">
                         <a href="index.php?pg=orders&<?= isset($_GET['status']) ? "status={$_GET['status']}&" : '' ?><?= isset($_GET['search']) ? "search={$_GET['search']}&" : '' ?>sort=email&order=<?= $sort == 'email' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
                             class="sort-link <?= $sort == 'email' ? 'active' : '' ?>">
                             Email
@@ -115,10 +115,10 @@
                         Địa chỉ
                     </th> -->
 
-                    <th style="width: 10%;">
+                    <th class="text-center" style="width: 10%;">
                         Thanh toán
                     </th>
-                    <th style="width: 10%;">
+                    <th class="text-center" style="width: 10%;">
                         <a href="index.php?pg=orders&<?= isset($_GET['status']) ? "status={$_GET['status']}&" : '' ?><?= isset($_GET['search']) ? "search={$_GET['search']}&" : '' ?>sort=status&order=<?= $sort == 'status' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
                             class="sort-link <?= $sort == 'status' ? 'active' : '' ?>">
                             Trạng thái
@@ -144,10 +144,10 @@
                             ?>
                         </a>
                     </th>
-                    <th style="width: 13%;">
+                    <th style="width: 20%;">
                         Ghi chú
                     </th>
-                    <th style="width: 15%;">
+                    <th class="text-center" style="width: 15%;">
                         Thao tác
                     </th>
                 </tr>
@@ -165,13 +165,13 @@
                         <td><?= $item['id'] ?></td>
                         <td><?= number_format($item['total_price']) ?> </td>
                         <td><?= ($item['phone']) ?></td>
-                        <td><?= ($item['email']) ?></td>
+                        <td title="<?= ($item['email']) ?>"><?= ($item['email']) ?></td>
                         <!-- <td class="text-truncate" style="max-width: 200px;" title="<?= ($item['address']) ?>">
                                 <?= ($item['address']) ?>
                             </td> -->
 
-                        <td><?= ($item['type_payment']) ?></td>
-                        <td>
+                        <td class="text-center"><?= ($item['type_payment']) ?></td>
+                        <td class="text-center">
                             <?php
                             $item_status = $item['status'];
                             $badge_class = '';
@@ -179,7 +179,7 @@
                             switch ($item_status) {
                                 case 'pending':
                                     $badge_class = 'badge bg-warning text-dark';
-                                    $status_text = 'Chờ xử lý';
+                                    $status_text = 'Chờ xác nhận';
                                     break;
                                 case 'preparing':
                                     $badge_class = 'badge bg-info';
@@ -202,21 +202,26 @@
                                     $status_text = $status;
                             }
                             ?>
-                            <span class="<?= $badge_class ?>"><?= $status_text ?></span>
+                            <span class="<?= $badge_class ?> " style="font-size: 0.9rem !important;  padding: 0.35em 0.65em !important;  color: #FFFFFF !important;">
+                                <?= $status_text ?>
+                            </span>
                         </td>
                         <td><?= date('d/m/Y H:i', strtotime($item['created_at'])) ?></td>
                         <td class="text-truncate" style="max-width: 150px;" title="<?= ($item['note']) ?>">
                             <?= ($item['note']) ?>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <button class="btn btn-primary btn-sm update-order-btn"
                                 data-id="<?= ($item['id']) ?>"
                                 data-status="<?= ($item['status']) ?>"
                                 data-note="<?= ($item['note']) ?>"
-                                data-bs-toggle="modal"
-                                data-bs-target="#updateOrderModal">
+                                data-toggle="modal"
+                                data-target="#updateOrderModal">
                                 <i class="fas fa-edit"></i> Cập nhật
                             </button>
+                            <a href="index.php?pg=orderdetail&order_id=<?= $item['id'] ?>" class="btn btn-success btn-sm me-1" title="Xem chi tiết">
+                                <i class="fas fa-eye"></i> Xem
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -225,15 +230,20 @@
     </div>
 
     <!-- Modal Cập Nhật Đơn Hàng -->
-    <div class="modal fade" id="updateOrderModal" tabindex="-1" aria-labelledby="updateOrderModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="updateOrderModal" tabindex="-1" role="dialog" aria-labelledby="updateOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="updateOrderModalLabel">Cập Nhật Đơn Hàng</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="updateOrderModalLabel">
+                        <i class="fas fa-edit me-2"></i> Cập Nhật Đơn Hàng
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-body">
-                    <form id="updateOrderForm">
+                <form id="updateOrderForm">
+                    <div class="modal-body">
+
                         <input type="hidden" name="id" id="orderId">
                         <div class="mb-3">
                             <label for="orderStatus" class="form-label">Trạng thái:</label>
@@ -247,17 +257,20 @@
                         </div>
                         <div class="mb-3">
                             <label for="orderNote" class="form-label">Ghi chú:</label>
-                            <textarea class="form-control" name="note" id="orderNote" rows="3"></textarea>
+                            <input type="text" class="form-control" name="note" id="orderNote"></input>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" id="saveOrderBtn">Lưu</button>
-                </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary" id="saveOrderBtn">Lưu</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
+
 
     <!-- Paging -->
     <nav aria-label="Page navigation">

@@ -93,3 +93,34 @@
         display: none !important;
     }
 }
+
+
+.checkbox-cell {
+    text-align: center;
+    /* padding: 10px; */
+}
+
+.checkbox-cell input[type="checkbox"] {
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+
+.table-header-blue {
+    background-color: rgb(60, 102, 215);
+    color: white;
+}
+
+.table-header-blue th a {
+    color: white;
+    /* text-decoration: none; */
+}
+
+.table-header-blue th a:hover {
+    color: #e0e0e0;
+}
+
+.table-header-blue th i {
+    color: white;
+    /* margin-left: 5px; */
+}

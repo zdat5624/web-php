@@ -10,6 +10,16 @@ function getAllProducts()
     return pdo_query($sql);
 }
 
+function getAllProductsForUser()
+{
+    $sql = "SELECT p.*, b.name as brand_name, c.name as category_name
+            FROM products p
+            JOIN brands b ON p.brand_id = b.id
+            JOIN categories c ON p.category_id = c.id  WHERE 1=1 AND p.is_visible = 1 ";
+
+    return pdo_query($sql);
+}
+
 function addProduct($name, $price, $short_desc, $detail_desc, $view, $sold, $brand_id, $category_id, $image)
 {
     $sql = "INSERT INTO products (name, price, short_desc, detail_desc, view, sold, brand_id, category_id, image)
@@ -38,13 +48,13 @@ function updateProduct($id, $name, $price, $short_desc, $detail_desc, $view, $so
 
 function getNewProducts($limit = 8)
 {
-    $sql = "SELECT * FROM products ORDER BY id DESC LIMIT $limit";
+    $sql = "SELECT * FROM products WHERE is_visible = 1 ORDER BY id DESC LIMIT $limit";
     return pdo_query($sql);
 }
 
 function getBestSellingProducts($limit = 8)
 {
-    $sql = "SELECT * FROM products ORDER BY sold DESC LIMIT $limit";
+    $sql = "SELECT * FROM products WHERE is_visible = 1 ORDER BY sold DESC LIMIT $limit";
     return pdo_query($sql);
 }
 
@@ -122,7 +132,7 @@ function getProductsWithFiltersForUser($pageSize, $offset, $brand_id = null, $ca
             FROM products p
             JOIN brands b ON p.brand_id = b.id
             JOIN categories c ON p.category_id = c.id
-            WHERE 1=1";
+            WHERE p.is_visible = 1 ";
 
     // check null or empty
     if ($brand_id) {
@@ -167,7 +177,7 @@ function getProductsWithFiltersForUser($pageSize, $offset, $brand_id = null, $ca
 
 function getTotalProductsWithFiltersForUser($brand_id = null, $category_id = null, $price_min = null, $price_max = null, $keyword = null)
 {
-    $sql = "SELECT COUNT(*) FROM products p WHERE 1=1";
+    $sql = "SELECT COUNT(*) FROM products p WHERE p.is_visible = 1 ";
     // check null or empty
     if ($brand_id) {
         $sql .= " AND p.brand_id = $brand_id";
@@ -183,4 +193,10 @@ function getTotalProductsWithFiltersForUser($brand_id = null, $category_id = nul
         $sql .= " AND p.name LIKE '%$keyword%' ";
     }
     return (int)pdo_query_value($sql);
+}
+
+function updateProductVisibility($id, $is_visible)
+{
+    $sql = "UPDATE `products` SET `is_visible` = ? WHERE `id` = ?";
+    pdo_execute($sql, $is_visible, $id);
 }

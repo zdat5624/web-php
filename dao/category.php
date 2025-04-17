@@ -7,6 +7,12 @@ function getAllCategories()
     return pdo_query($sql);
 }
 
+function getAllCategoriesForUser()
+{
+    $sql = "SELECT * FROM categories WHERE is_visible = 1  ORDER BY order_number ";
+    return pdo_query($sql);
+}
+
 function addCategory($name, $order_number)
 {
     $sql = "INSERT INTO categories (name, order_number) VALUES (?, ?)";
@@ -60,4 +66,10 @@ function getCategoriesWithSort($pageSize, $offset, $sort = 'id', $order = 'DESC'
     $sql .= " ORDER BY c.$sort $order";
     $sql .= " LIMIT $offset , $pageSize";
     return pdo_query($sql);
+}
+
+function updateCategoryVisibility($id, $is_visible)
+{
+    $sql = "UPDATE `categories` SET `is_visible` = ? WHERE `id` = ?";
+    pdo_execute($sql, $is_visible, $id);
 }

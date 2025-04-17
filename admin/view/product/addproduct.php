@@ -1,5 +1,11 @@
 <div class="container mt-5">
-    <h2 class="text-primary">Thêm sản phẩm</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary mb-0">Thêm sản phẩm</h2>
+        <a href="index.php?pg=products" class="btn btn-outline-secondary">
+            ← Quay lại
+        </a>
+    </div>
     <form action="index.php?pg=addproduct" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label class="form-label">Tên sản phẩm</label>

@@ -6,6 +6,12 @@ function getAllBrands()
     return pdo_query($sql);
 }
 
+function getAllBrandsForUser()
+{
+    $sql = "SELECT * FROM brands b WHERE b.is_visible = 1 ORDER BY order_number  ";
+    return pdo_query($sql);
+}
+
 function addBrand($name, $order_number)
 {
     $sql = "INSERT INTO brands (name, order_number) VALUES (?,?)";
@@ -59,4 +65,11 @@ function getBrandsWithSort($pageSize, $offset, $sort = 'id', $order = 'DESC')
     $sql .= " ORDER BY b.$sort $order";
     $sql .= " LIMIT $offset , $pageSize";
     return pdo_query($sql);
+}
+
+
+function updateBrandVisibility($id, $is_visible)
+{
+    $sql = "UPDATE `brands` SET `is_visible` = ? WHERE `id` = ?";
+    pdo_execute($sql, $is_visible, $id);
 }
