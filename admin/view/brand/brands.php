@@ -80,11 +80,11 @@
                         </td>
                         <td class="text-center">
                             <a href="index.php?pg=updatebrand&id=<?= $brand['id'] ?>">
-                                <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
+                                <button class="btn btn-warning btn-sm" title="Sửa"><i class="fas fa-edit"></i> </button>
                             </a>
                             <a href="index.php?pg=deletebrand&id=<?= $brand['id'] ?>"
                                 onclick="return confirm('Bạn có chắc muốn xóa thương hiệu này?')">
-                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</button>
+                                <button class="btn btn-danger btn-sm" title="Xóa"><i class="fas fa-trash"></i> </button>
                             </a>
                         </td>
                     </tr>

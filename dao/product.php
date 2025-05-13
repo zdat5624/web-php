@@ -200,3 +200,9 @@ function updateProductVisibility($id, $is_visible)
     $sql = "UPDATE `products` SET `is_visible` = ? WHERE `id` = ?";
     pdo_execute($sql, $is_visible, $id);
 }
+
+function updateProductView($product_id)
+{
+    $sql = "UPDATE products SET view = view + 1 WHERE id = ?";
+    pdo_execute($sql, $product_id);
+}

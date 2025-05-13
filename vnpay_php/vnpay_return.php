@@ -110,13 +110,12 @@ require_once("../dao/cart.php");
                 <label>Kết quả:</label>
                 <label>
                     <?php
+                    $txn_ref = $_GET['vnp_TxnRef'] ?? '';
                     if ($secureHash == $vnp_SecureHash) {
                         if ($_GET['vnp_ResponseCode'] == '00') {
                             echo "<span style='color:blue'>Thanh toán đơn hàng thành công</span>";
 
                             try {
-                                $txn_ref = $_GET['vnp_TxnRef'] ?? '';
-
                                 if (empty($txn_ref)) {
                                     throw new Exception("Thiếu thông tin giao dịch.");
                                 }
@@ -134,15 +133,18 @@ require_once("../dao/cart.php");
                                     throw new Exception("Đã thanh toán hoặc giỏ hàng không tồn tại ...");
                                 }
 
-                                $order_id = createOrder($cart['user_id'], $vnpay_check['phone'], $vnpay_check['email'], $vnpay_check['address'], 'vnpay');
+                                $order_id = createOrder($cart['user_id'], $vnpay_check['phone'], $vnpay_check['receiver_name'], $vnpay_check['address'], 'vnpay');
                                 updateVnpayCheck($txn_ref, $order_id);
                                 update_vnp_ResponseCode($txn_ref, $_GET['vnp_ResponseCode']);
                             } catch (Exception $e) {
                                 error_log(">>> Lỗi vnpay_return: " . $e->getMessage());
                             }
                         } else {
-                            echo "<span style='color:red'>Thanh toán bị hủy hoặc thất bại! Vui lòng liên hệ 1900 6626 để được hỗ trợ</span>";
-
+                            if ($_GET['vnp_ResponseCode'] == '24') {
+                                echo "<span style='color:orange'>Hủy giao dịch VNPAY thành công</span>";
+                            } else {
+                                echo "<span style='color:red'>Thanh toán thất bại! Vui lòng liên hệ 1900 6626 để được hỗ trợ (Mã lỗi: " . $_GET['vnp_ResponseCode'] . ")</span>";
+                            }
                             update_vnp_ResponseCode($txn_ref, $_GET['vnp_ResponseCode']);
                         }
                     } else {

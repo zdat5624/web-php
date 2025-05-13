@@ -1,13 +1,13 @@
 <?php
-// Điền phone, email
+// Điền form
 $phone_value = '';
-$email_value = '';
+$receiver_name_value = '';
 
 if (isset($cart['id'])) {
     $vnpay_check = get_pending_vnpay_check_by_cart_id($cart['id']);
     if ($vnpay_check) {
         $phone_value = $vnpay_check['phone'] ?? '';
-        $email_value = $vnpay_check['email'] ?? '';
+        $receiver_name_value = $vnpay_check['receiver_name'] ?? '';
     }
 }
 
@@ -15,8 +15,8 @@ if (empty($phone_value) && isset($_SESSION['user'])) {
     $phone_value = $_SESSION['user']['phone'] ?? '';
 }
 
-if (empty($email_value) && isset($_SESSION['user'])) {
-    $email_value = $_SESSION['user']['email'] ?? '';
+if (empty($receiver_name_value) && isset($_SESSION['user'])) {
+    $receiver_name_value = $_SESSION['user']['name'] ?? '';
 }
 ?>
 
@@ -47,8 +47,8 @@ if (empty($email_value) && isset($_SESSION['user'])) {
                             <input class="form-control" type="text" id="phone" name="phone" placeholder="Nhập số điện thoại..." value="<?= $phone_value ?>" required>
                         </div>
                         <div class="col-md-6 form-group mb-4">
-                            <label>Email liên hệ</label>
-                            <input class="form-control" type="email" id="email" name="email" placeholder="Nhập email..." value="<?= $email_value ?>" required>
+                            <label>Tên người nhận</label>
+                            <input class="form-control" type="text" id="receiver_name" name="receiver_name" placeholder="Nhập tên người nhận ..." value="<?= $receiver_name_value ?>" required>
                         </div>
                         <div class=" col-md-6 form-group mb-4">
                             <label for="province">Tỉnh / Thành phố <span class="text-danger">*</span></label>

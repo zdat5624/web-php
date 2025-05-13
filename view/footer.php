@@ -766,13 +766,13 @@
                 // Lấy dữ liệu từ input
                 var formData = {
                     phone: $('#phone').val().trim(),
-                    email: $('#email').val().trim(),
+                    receiver_name: $('#receiver_name').val().trim(),
                     full_address: $('#full_address').val().trim(),
                     payment: paymentMethod,
                     checkout_cod: true
                 };
 
-                if (!formData.phone || !formData.email || !formData.full_address) {
+                if (!formData.phone || !formData.receiver_name || !formData.full_address) {
                     $btn.prop('disabled', false).text('Đặt Hàng');
                     showToast('Vui lòng điền đầy đủ thông tin', 'error');
                     return;
@@ -810,13 +810,13 @@
                 // Lấy dữ liệu từ input
                 var formData = {
                     phone: $('#phone').val().trim(),
-                    email: $('#email').val().trim(),
+                    receiver_name: $('#receiver_name').val().trim(),
                     full_address: $('#full_address').val().trim(),
                     payment: paymentMethod,
                     checkout_cod: true
                 };
 
-                if (!formData.phone || !formData.email || !formData.full_address) {
+                if (!formData.phone || !formData.receiver_name || !formData.full_address) {
                     $btn.prop('disabled', false).text('Thanh toán');
                     showToast('Vui lòng điền đầy đủ thông tin', 'error');
                     return;

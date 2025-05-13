@@ -58,7 +58,9 @@ if (isset($_POST['get_cart_count'])) {
 
     if ($cart) {
         $cart_details = getCartDetails($cart['id']);
-        $cart_count = count($cart_details);
+        foreach ($cart_details as $detail) {
+            $cart_count += $detail['quantity'];
+        }
     }
 
     $response['status'] = 'success';

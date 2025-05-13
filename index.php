@@ -11,6 +11,7 @@ require_once "dao/vnpay_check.php";
 require_once "dao/order.php";
 require_once "dao/user.php";
 require_once "dao/verify_token.php";
+require_once "dao/slide.php";
 require_once "dao/global.php";
 
 
@@ -22,6 +23,7 @@ if (!isset($_GET['pg'])) {
     $newProducts = getNewProducts();
     $bestSellingProducts = getBestSellingProducts();
     $brands = getAllBrandsForUser();
+    $slides = getAllSlidesForUser();
     include "view/home.php";
 } else {
     switch ($_GET['pg']) {
@@ -129,7 +131,7 @@ if (!isset($_GET['pg'])) {
 
             $id = isset($_GET['id']) ? $_GET['id'] : null;
             $product = getProductById($id);
-
+            updateProductView($id);
             include "view/productdetail.php";
             break;
 

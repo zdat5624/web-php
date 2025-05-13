@@ -18,12 +18,12 @@ $user_id = $_SESSION['user']['id'];
 
 if (isset($_POST['checkout_cod'])) {
     $phone = trim($_POST['phone'] ?? '');
-    $email = trim($_POST['email'] ?? '');
+    $receiver_name = trim($_POST['receiver_name'] ?? '');
     $full_address = trim($_POST['full_address'] ?? '');
     $payment = trim($_POST['payment'] ?? '');
 
     // Kiểm tra dữ liệu đầu vào
-    if (empty($phone) || empty($email) || empty($full_address)) {
+    if (empty($phone) || empty($receiver_name) || empty($full_address)) {
         $response['message'] = 'Vui lòng điền đầy đủ thông tin';
         echo json_encode($response);
         exit;
@@ -36,7 +36,7 @@ if (isset($_POST['checkout_cod'])) {
     }
 
     try {
-        $order_id = createOrder($user_id, $phone, $email, $full_address, $payment);
+        $order_id = createOrder($user_id, $phone, $receiver_name, $full_address, $payment);
 
         $response = [
             'status' => 'success',

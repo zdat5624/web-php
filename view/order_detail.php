@@ -54,11 +54,44 @@
             <div class="mb-4">
                 <p><strong>Ngày đặt hàng:</strong> <?= date('d/m/Y H:i', strtotime($order['created_at'])); ?></p>
                 <p><strong>Tổng tiền:</strong> <?= number_format($order['total_price']); ?> VNĐ</p>
-                <p><strong>Trạng thái:</strong> <?= htmlspecialchars($order['status']); ?></p>
+
+                <?php
+                $status_text = '';
+                $badge_class = '';
+                switch ($order['status']) {
+                    case 'pending':
+                        $badge_class = 'badge bg-warning text-dark';
+                        $status_text = 'Chờ xác nhận';
+                        break;
+                    case 'preparing':
+                        $badge_class = 'badge bg-info';
+                        $status_text = 'Đang chuẩn bị';
+                        break;
+                    case 'shipping':
+                        $badge_class = 'badge bg-primary';
+                        $status_text = 'Đang giao';
+                        break;
+                    case 'completed':
+                        $badge_class = 'badge bg-success';
+                        $status_text = 'Hoàn thành';
+                        break;
+                    case 'canceled':
+                        $badge_class = 'badge bg-danger';
+                        $status_text = 'Đã hủy';
+                        break;
+                    default:
+                        $badge_class = 'badge bg-secondary';
+                        $status_text = $order['status'];
+                }
+                ?>
+
+                <p>
+                    <strong>Trạng thái:</strong> <span class="<?= $badge_class ?>" style="font-size: 0.9rem !important;  padding: 0.35em 0.65em !important;  color: #FFFFFF !important;"><?= $status_text ?></span>
+                </p>
                 <p><strong>Phương thức thanh toán:</strong> <?= $order['type_payment'] === 'cod' ? 'Thanh toán khi nhận hàng' : 'Chuyển khoản - VNPay'; ?></p>
                 <p><strong>Địa chỉ giao hàng:</strong> <?= $order['address']; ?></p>
                 <p><strong>Số điện thoại người nhận:</strong> <?= $order['phone']; ?></p>
-                <p><strong>Email người nhận:</strong> <?= $order['email']; ?></p>
+                <p><strong>Tên người nhận:</strong> <?= $order['receiver_name']; ?></p>
             </div>
         </div>
     </div>

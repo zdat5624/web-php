@@ -9,7 +9,7 @@ function getAllCategories()
 
 function getAllCategoriesForUser()
 {
-    $sql = "SELECT * FROM categories WHERE is_visible = 1  ORDER BY order_number ";
+    $sql = "SELECT * FROM categories WHERE is_visible = 1  ORDER BY order_number DESC";
     return pdo_query($sql);
 }
 

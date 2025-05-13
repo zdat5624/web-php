@@ -39,10 +39,10 @@ if ($cart['total_price'] <= 0) {
 }
 
 $phone = $_POST['phone'] ?? '';
-$email = $_POST['email'] ?? '';
+$receiver_name = $_POST['receiver_name'] ?? '';
 $address = $_POST['full_address'] ?? '';
 
-if (!$phone || !$email || !$address) {
+if (!$phone || !$receiver_name || !$address) {
     echo json_encode(['status' => 'error', 'message' => 'Thông tin không hợp lệ']);
     exit;
 }
@@ -50,8 +50,8 @@ if (!$phone || !$email || !$address) {
 $vnpay_check = get_pending_vnpay_check_by_cart_id($cart['id']);
 
 if ($vnpay_check) {
-    $sql = "UPDATE vnpay_check SET phone = ?, email = ?, address = ? WHERE id = ?";
-    pdo_execute($sql, $phone, $email, $address, $vnpay_check['id']);
+    $sql = "UPDATE vnpay_check SET phone = ?, receiver_name = ?, address = ? WHERE id = ?";
+    pdo_execute($sql, $phone, $receiver_name, $address, $vnpay_check['id']);
 
     //error_log("vnpay_check updated: id=" . $vnpay_check['id'] . ", link=" . $vnpay_check['link']);
 
@@ -111,7 +111,7 @@ if (isset($vnp_HashSecret)) {
 
 
 
-vnpay_check_create($vnp_TxnRef, $phone, $email, $address, $vnp_Url, $expired_at, $cart['id']);
+vnpay_check_create($vnp_TxnRef, $phone, $receiver_name, $address, $vnp_Url, $expired_at, $cart['id']);
 echo json_encode([
     'status' => 'success',
     'message' => 'Tạo yêu cầu thanh toán thành công',

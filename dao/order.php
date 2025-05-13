@@ -1,5 +1,5 @@
 <?php
-function createOrder($user_id, $phone, $email, $address, $payment = 'cod')
+function createOrder($user_id, $phone, $receiver_name, $address, $payment = 'cod')
 {
     try {
         // Lấy giỏ hàng
@@ -27,16 +27,22 @@ function createOrder($user_id, $phone, $email, $address, $payment = 'cod')
         $status = 'pending';
         $note = '';
         $conn = pdo_get_connection();
-        $sql = "INSERT INTO orders (total_price, phone, email, address, note, type_payment, status, user_id) 
+        $sql = "INSERT INTO orders (total_price, phone, receiver_name, address, note, type_payment, status, user_id) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$total_price, $phone, $email, $address, $note, $payment, $status, $user_id]);
+        $stmt->execute([$total_price, $phone, $receiver_name, $address, $note, $payment, $status, $user_id]);
         $order_id = $conn->lastInsertId();
 
         // Lưu chi tiết đơn hàng
         $sql = "INSERT INTO order_detail (price, quantity, order_id, product_id) VALUES (?, ?, ?, ?)";
         foreach ($cart_items as $item) {
             pdo_execute($sql, $item['price'], $item['quantity'], $order_id, $item['product_id']);
+        }
+
+        // Cập nhật số lượng bán (sold) cho từng sản phẩm
+        $sql = "UPDATE products SET sold = sold + ? WHERE id = ?";
+        foreach ($cart_items as $item) {
+            pdo_execute($sql, $item['quantity'], $item['product_id']);
         }
 
         // Xóa giỏ hàng
@@ -114,7 +120,7 @@ function getTotalOrdersWithFilters($status = null, $search = null)
     }
 
     if ($search) {
-        $sql .= " AND (id LIKE '%$search%' OR phone LIKE '%$search%' OR email LIKE '%$search%' )";
+        $sql .= " AND (id LIKE '%$search%' OR phone LIKE '%$search%' OR receiver_name LIKE '%$search%' )";
     }
 
     return (int)pdo_query_value($sql);
@@ -122,7 +128,7 @@ function getTotalOrdersWithFilters($status = null, $search = null)
 
 function getOrdersWithFilters($pageSize, $offset, $status = null, $search = null, $sort = 'id', $order = 'DESC')
 {
-    $allowed_sort = ['id', 'total_price', 'phone', 'email', 'status', 'created_at'];
+    $allowed_sort = ['id', 'total_price', 'phone', 'receiver_name', 'status', 'created_at'];
     $sort = in_array($sort, $allowed_sort) ? $sort : 'id';
     $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
 
@@ -134,7 +140,7 @@ function getOrdersWithFilters($pageSize, $offset, $status = null, $search = null
     }
 
     if ($search) {
-        $sql .= " AND (id LIKE '%$search%' OR phone LIKE '%$search%' OR email LIKE '%$search%' )";
+        $sql .= " AND (id LIKE '%$search%' OR phone LIKE '%$search%' OR receiver_name LIKE '%$search%' )";
     }
 
     $sql .= " ORDER BY $sort $order LIMIT $offset , $pageSize ";

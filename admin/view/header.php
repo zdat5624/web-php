@@ -46,6 +46,15 @@ if (!isset($_GET['pg'])) {
         case  'orderdetail':
             $page_title = 'Chi tiết đơn hàng | XLaptopshop';
             break;
+        case  'slides':
+            $page_title = 'Slides | XLaptopshop';
+            break;
+        case  'addslide':
+            $page_title = 'Thêm slide | XLaptopshop';
+            break;
+        case  'updateslide':
+            $page_title = 'Sửa slide | XLaptopshop';
+            break;
     }
 }
 
@@ -149,6 +158,13 @@ if (!isset($_GET['pg'])) {
                     <i class="fas fa-fw fa-table"></i>
                     <span>Thương hiệu</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pg=slides">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Slides</span></a>
+            </li>
+
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="index.php?pg=products">

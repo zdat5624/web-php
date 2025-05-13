@@ -9,7 +9,7 @@ include "../dao/user.php";
 include "../dao/category.php";
 include "../dao/brand.php";
 include "../dao/order.php";
-
+include "../dao/slide.php";
 include "view/header.php";
 
 if (!isset($_SESSION['user'])) {
@@ -37,6 +37,135 @@ if (!isset($_GET['pg'])) {
     include "view/home.php";
 } else {
     switch ($_GET['pg']) {
+
+        case 'slides':
+            $pageSize = 10;
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $offset = ($current_page - 1) * $pageSize;
+
+            // Sắp xếp
+            $sort = isset($_GET['sort'])  ? $_GET['sort'] : 'order_number';
+            $order = isset($_GET['order'])  ? $_GET['order'] : 'DESC';
+
+            // Phân trang
+            $total_slides = getTotalSlides();
+            $total_pages = ceil($total_slides / $pageSize);
+
+            // Danh sách slides
+            $slides = getSlidesWithSort($pageSize, $offset, $sort, $order);
+
+            include "view/slide/slides.php";
+            break;
+
+        case 'addslide':
+            if (isset($_POST['addslide'])) {
+                $link = $_POST['link'];
+                $order_number = $_POST['order_number'];
+
+                // Upload ảnh
+                $target_dir = IMG_PATH_ADMIN;
+                $image_name = basename($_FILES["image"]["name"]);
+                $imageFileType = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+                $new_image_name = time() . "_" . rand(1000, 9999) . "_" . $image_name;
+                $target_file = $target_dir . $new_image_name;
+                $uploadOk = 1;
+
+                if ($_FILES["image"]["size"] > 10000000) {
+                    echo "<script>alert('Tệp quá lớn! Chỉ hỗ trợ file < 10MB.');</script>";
+                    $uploadOk = 0;
+                }
+                $allowed_extensions = ["jpg", "jpeg", "png", "gif", "webp"];
+                if (!in_array($imageFileType, $allowed_extensions)) {
+                    echo "<script>alert('Chỉ cho phép file JPG, JPEG, PNG, GIF, WEBP!');</script>";
+                    $uploadOk = 0;
+                }
+
+                if ($uploadOk == 1) {
+                    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                        addSlide($link, $order_number, $new_image_name);
+                    } else {
+                        echo "<script>alert('Lỗi khi tải lên ảnh!');</script>";
+                    }
+                }
+            }
+            $next_order_number_slide = getNextOrderNumberSlide();
+            include "view/slide/addslide.php";
+            break;
+
+        case 'updateslide':
+            if (isset($_GET['id'])) {
+                $slide = getSlideById($_GET['id']);
+                if (!$slide) {
+                    echo "<script>alert('Slide không tồn tại!'); window.location='index.php?pg=slides';</script>";
+                    exit();
+                }
+                include "view/slide/updateslide.php";
+            }
+            break;
+
+        case 'handleupdateslide':
+            if (isset($_POST['updateslide'])) {
+                $id = $_POST['id'];
+                $link = $_POST['link'];
+                $order_number = $_POST['order_number'];
+                $current_image = $_POST['current_image'];
+
+                if ($_FILES['image']['name'] != '') {
+                    $target_dir = IMG_PATH_ADMIN;
+                    $image_name = basename($_FILES["image"]["name"]);
+                    $imageFileType = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+                    $new_image_name = time() . "_" . rand(1000, 9999) . "_" . $image_name;
+                    $target_file = $target_dir . $new_image_name;
+                    $uploadOk = 1;
+
+                    if ($_FILES["image"]["size"] > 10000000) {
+                        echo "<script>alert('Tệp quá lớn! Chỉ hỗ trợ file < 10MB.');</script>";
+                        $uploadOk = 0;
+                    }
+                    $allowed_extensions = ["jpg", "jpeg", "png", "gif", "webp"];
+                    if (!in_array($imageFileType, $allowed_extensions)) {
+                        echo "<script>alert('Chỉ cho phép file JPG, JPEG, PNG, GIF, WEBP!');</script>";
+                        $uploadOk = 0;
+                    }
+
+                    if ($uploadOk == 1) {
+                        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                            if (file_exists($target_dir . $current_image)) {
+                                unlink($target_dir . $current_image);
+                            }
+                            $image = $new_image_name;
+                        } else {
+                            echo "<script>alert('Lỗi khi tải lên ảnh!');</script>";
+                            $image = $current_image;
+                        }
+                    } else {
+                        $image = $current_image;
+                    }
+                } else {
+                    $image = $current_image;
+                }
+
+                updateSlide($id, $link, $order_number, $image);
+            }
+            header("Location: index.php?pg=slides");
+            exit();
+            break;
+
+        case 'deleteslide':
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                $slide = getSlideById($id);
+                if ($slide) {
+                    $image_path = IMG_PATH_ADMIN . $slide['image'];
+                    if (file_exists($image_path)) {
+                        unlink($image_path);
+                    }
+                    deleteSlideById($id);
+                }
+            }
+            header("Location: index.php?pg=slides");
+            exit();
+            break;
 
         /* COntroller order*/
         case 'orders':
@@ -110,7 +239,10 @@ if (!isset($_GET['pg'])) {
                 $address = $_POST['address'] ?? '';
                 $phone = $_POST['phone'] ?? '';
                 $role = $_POST['role'];
-
+                if (isEmailExists($email, null)) {
+                    header("Location: index.php?pg=users&pg=adduser&error=email");
+                    exit();
+                }
                 addUser($email, $password, $name, $address, $phone, $role);
             }
             include "view/user/adduser.php";
@@ -121,8 +253,8 @@ if (!isset($_GET['pg'])) {
                 $id = $_GET['id'];
                 deleteUserById($id);
             }
-            $users = getAllUsers();
-            include "view/user/users.php";
+            header("Location: index.php?pg=users");
+            exit();
             break;
 
         case 'updateuser':
@@ -141,7 +273,10 @@ if (!isset($_GET['pg'])) {
                 $address = $_POST['address'];
                 $phone = $_POST['phone'];
                 $role = $_POST['role'];
-
+                if (isEmailExists($email, $id)) {
+                    header("Location: index.php?pg=users&pg=updateuser&id=$id&error=email");
+                    exit();
+                }
                 updateUser($id, $email, $password, $name, $address, $phone, $role);
             }
             header("Location: index.php?pg=users");
@@ -164,7 +299,7 @@ if (!isset($_GET['pg'])) {
             $offset = ($current_page - 1) * $pageSize;
 
             // sort
-            $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+            $sort = isset($_GET['sort']) ? $_GET['sort'] : 'order_number';
             $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
 
             // paging
@@ -213,8 +348,8 @@ if (!isset($_GET['pg'])) {
                 $id = $_GET['id'];
                 deleteCategoryById($id);
             }
-            $categories = getAllCategories();
-            include "view/category/categories.php";
+            header("Location: index.php?pg=categories");
+            exit();
             break;
 
 
@@ -236,7 +371,7 @@ if (!isset($_GET['pg'])) {
             $offset = ($current_page - 1) * $pageSize;
 
             // sort
-            $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+            $sort = isset($_GET['sort']) ? $_GET['sort'] : 'order_number';
             $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
 
             // paging
@@ -275,7 +410,8 @@ if (!isset($_GET['pg'])) {
 
                 updateBrand($id, $name, $order_number);
             }
-
+            header("Location: index.php?pg=brands");
+            exit();
 
             $brands = getAllBrands();
             include "view/brand/brands.php";
@@ -287,8 +423,8 @@ if (!isset($_GET['pg'])) {
                 $id = $_GET['id'];
                 deleteBrandById($id);
             }
-            $brands = getAllBrands();
-            include "view/brand/brands.php";
+            header("Location: index.php?pg=brands");
+            exit();
             break;
 
 
@@ -476,6 +612,12 @@ if (!isset($_GET['pg'])) {
 
 
         default:
+            $monthly_revenue = getMonthlyRevenue();
+            $yearly_revenue = getYearlyRevenue();
+            $total_users = getTotalUsers();
+            $pending_orders = getPendingOrders();
+            $revenue_by_month = getRevenueByMonth();
+            $product_by_category = getProductByCategory();
             include "view/home.php";
             break;
     }

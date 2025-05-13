@@ -14,7 +14,7 @@
             <p><strong>ID:</strong> <?= $order['id'] ?></p>
             <p><strong>Tổng giá:</strong> <?= number_format($order['total_price']) ?> VNĐ</p>
             <p><strong>Số điện thoại:</strong> <?= ($order['phone']) ?></p>
-            <p><strong>Email:</strong> <?= ($order['email']) ?></p>
+            <p><strong>Tên người nhận:</strong> <?= ($order['receiver_name']) ?></p>
         </div>
         <div class="col-md-6">
             <p><strong>Địa chỉ:</strong> <?= ($order['address']) ?></p>

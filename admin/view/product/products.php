@@ -170,7 +170,7 @@
                         </a>
                     </th>
                     <th class="text-center">Hiển thị</th>
-                    <th class="text-center">Thao tác</th>
+                    <th class="text-center action-column">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
@@ -203,13 +203,13 @@
                                         data-type="product"
                                         ' . ($product['is_visible'] ? 'checked' : '') . '>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center action-column">
                                     <a href="index.php?pg=updateproduct&id=' . $product['id'] . '">
-                                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</button>
+                                        <button class="btn btn-warning btn-sm" title="Sửa"><i class="fas fa-edit"></i> </button>
                                     </a>
-                                    <a href="index.php?pg=deleteproduct&id=' . $product['id'] . '" 
+                                    <a href="index.php?pg=deleteproduct&id=' . $product['id'] . '"
                                         onclick="return confirm(\'Bạn có chắc muốn xóa sản phẩm này?\')">
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</button>
+                                        <button class="btn btn-danger btn-sm" title="Xóa"><i class="fas fa-trash"></i></button>
                                     </a>
                                 </td>
                         </tr>';
@@ -248,3 +248,18 @@
         </ul>
     </nav>
 </div>
+
+<style>
+    .action-column {
+        min-width: 120px;
+        /* Điều chỉnh chiều rộng tối thiểu theo nhu cầu */
+        white-space: nowrap;
+        /* Ngăn các nút xuống hàng */
+        text-align: center;
+    }
+
+    .action-column .btn {
+        margin: 0 1px;
+        /* Khoảng cách giữa các nút */
+    }
+</style>

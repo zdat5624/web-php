@@ -13,6 +13,29 @@
             <input type="hidden" name="status" value="<?= $status ?>">
 
 
+            <!-- Ô tìm kiếm và các nút -->
+            <div class="col-12 col-md-6 col-lg-4 mb-3">
+                <label for="search" class="form-label fw-bold text-primary">
+                    <i class="fas fa-search"></i> Tìm kiếm:
+                </label>
+                <div class="input-group">
+                    <input type="text" name="search" id="search" class="form-control"
+                        placeholder="ID, SĐT, người nhận" value="<?= isset($_GET['search']) ? ($_GET['search']) : '' ?>">
+                    <button type="submit" class="btn btn-primary" style="display: flex; justify-content: center; align-items: center;">
+                        <i class="fas fa-search"></i>
+                    </button>
+
+                    <?php if (isset($_GET['search']) && $_GET['search'] !== '') : ?>
+                        <a href="index.php?pg=orders&sort=<?= ($sort) ?>&order=<?= ($order) ?>&status=<?= ($status ? $status : '') ?>"
+                            class="btn btn-outline-secondary"
+                            style="display: flex; justify-content: center; align-items: center;"
+                            title="Hủy tìm kiếm">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+
             <!-- Nút lọc trạng thái -->
             <div class="col-12 mb-3">
                 <label class="form-label fw-bold text-primary">
@@ -28,28 +51,7 @@
                 </div>
             </div>
 
-            <!-- Ô tìm kiếm và các nút -->
-            <div class="col-12 col-md-6 col-lg-4 mb-3">
-                <label for="search" class="form-label fw-bold text-primary">
-                    <i class="fas fa-search"></i> Tìm kiếm:
-                </label>
-                <div class="input-group">
-                    <input type="text" name="search" id="search" class="form-control"
-                        placeholder="ID, Phone, Email" value="<?= isset($_GET['search']) ? ($_GET['search']) : '' ?>">
-                    <button type="submit" class="btn btn-primary" style="display: flex; justify-content: center; align-items: center;">
-                        <i class="fas fa-search"></i>
-                    </button>
 
-                    <?php if (isset($_GET['search']) && $_GET['search'] !== '') : ?>
-                        <a href="index.php?pg=orders&sort=<?= ($sort) ?>&order=<?= ($order) ?>&status=<?= ($status ? $status : '') ?>"
-                            class="btn btn-outline-secondary"
-                            style="display: flex; justify-content: center; align-items: center;"
-                            title="Hủy tìm kiếm">
-                            <i class="fas fa-times"></i>
-                        </a>
-                    <?php endif; ?>
-                </div>
-            </div>
 
         </form>
     </div>
@@ -99,11 +101,11 @@
                         </a>
                     </th>
                     <th style="width: 10%;">
-                        <a href="index.php?pg=orders&<?= isset($_GET['status']) ? "status={$_GET['status']}&" : '' ?><?= isset($_GET['search']) ? "search={$_GET['search']}&" : '' ?>sort=email&order=<?= $sort == 'email' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
-                            class="sort-link <?= $sort == 'email' ? 'active' : '' ?>">
-                            Email
+                        <a href="index.php?pg=orders&<?= isset($_GET['status']) ? "status={$_GET['status']}&" : '' ?><?= isset($_GET['search']) ? "search={$_GET['search']}&" : '' ?>sort=receiver_name&order=<?= $sort == 'receiver_name' && $order == 'ASC' ? 'DESC' : 'ASC' ?>"
+                            class="sort-link <?= $sort == 'receiver_name' ? 'active' : '' ?>">
+                            Người nhận
                             <?php
-                            if ($sort == 'email') {
+                            if ($sort == 'receiver_name') {
                                 echo $order == 'ASC' ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>';
                             } else {
                                 echo '<i class="fas fa-sort"></i>';
@@ -165,7 +167,7 @@
                         <td><?= $item['id'] ?></td>
                         <td><?= number_format($item['total_price']) ?> </td>
                         <td><?= ($item['phone']) ?></td>
-                        <td title="<?= ($item['email']) ?>"><?= ($item['email']) ?></td>
+                        <td title="<?= ($item['receiver_name']) ?>"><?= ($item['receiver_name']) ?></td>
                         <!-- <td class="text-truncate" style="max-width: 200px;" title="<?= ($item['address']) ?>">
                                 <?= ($item['address']) ?>
                             </td> -->
@@ -211,17 +213,18 @@
                             <?= ($item['note']) ?>
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-primary btn-sm update-order-btn"
+                            <a href="index.php?pg=orderdetail&order_id=<?= $item['id'] ?>" class="btn btn-success btn-sm me-1" title="Xem chi tiết">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <button class="btn btn-warning btn-sm update-order-btn" title="Cập Nhật Đơn Hàng"
                                 data-id="<?= ($item['id']) ?>"
                                 data-status="<?= ($item['status']) ?>"
                                 data-note="<?= ($item['note']) ?>"
                                 data-toggle="modal"
                                 data-target="#updateOrderModal">
-                                <i class="fas fa-edit"></i> Cập nhật
+                                <i class="fas fa-edit"></i>
                             </button>
-                            <a href="index.php?pg=orderdetail&order_id=<?= $item['id'] ?>" class="btn btn-success btn-sm me-1" title="Xem chi tiết">
-                                <i class="fas fa-eye"></i> Xem
-                            </a>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>

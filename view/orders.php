@@ -45,7 +45,43 @@
                                 </td>
                                 <td class="align-middle"><?php echo date('d/m/Y H:i', strtotime($order['created_at'])); ?></td>
                                 <td class="align-middle"><?php echo number_format($order['total_price']); ?> VNĐ</td>
-                                <td class="align-middle"><?php echo $order['status']; ?></td>
+
+                                <?php
+                                $status_text = '';
+                                $badge_class = '';
+                                switch ($order['status']) {
+                                    case 'pending':
+                                        $badge_class = 'badge bg-warning text-dark';
+                                        $status_text = 'Chờ xác nhận';
+                                        break;
+                                    case 'preparing':
+                                        $badge_class = 'badge bg-info';
+                                        $status_text = 'Đang chuẩn bị';
+                                        break;
+                                    case 'shipping':
+                                        $badge_class = 'badge bg-primary';
+                                        $status_text = 'Đang giao';
+                                        break;
+                                    case 'completed':
+                                        $badge_class = 'badge bg-success';
+                                        $status_text = 'Hoàn thành';
+                                        break;
+                                    case 'canceled':
+                                        $badge_class = 'badge bg-danger';
+                                        $status_text = 'Đã hủy';
+                                        break;
+                                    default:
+                                        $badge_class = 'badge bg-secondary';
+                                        $status_text = $order['status'];
+                                }
+                                ?>
+
+
+                                <td class="align-middle">
+
+                                    <span class="<?= $badge_class ?>" style="font-size: 0.9rem !important;  padding: 0.35em 0.65em !important;  color: #FFFFFF !important;"><?= $status_text ?></span>
+
+                                </td>
                                 <td class="align-middle">
                                     <a href="index.php?pg=order_detail&id=<?php echo $order['id']; ?>" class="btn btn-sm btn-primary">
                                         <i class="fa fa-eye"></i> Xem

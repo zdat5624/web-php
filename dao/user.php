@@ -117,3 +117,14 @@ function registerUser($email, $password, $name, $address, $phone)
     $sql = "SELECT * FROM users WHERE email = ?";
     return pdo_query_one($sql, $email);
 }
+
+
+function isEmailExists($email, $exclude_id = null)
+{
+    $sql = "SELECT COUNT(*) FROM users WHERE email = ?";
+    if ($exclude_id !== null) {
+        $sql .= " AND id != ?";
+        return pdo_query_value($sql, $email, $exclude_id) > 0;
+    }
+    return pdo_query_value($sql, $email) > 0;
+}

@@ -8,7 +8,7 @@ function getAllBrands()
 
 function getAllBrandsForUser()
 {
-    $sql = "SELECT * FROM brands b WHERE b.is_visible = 1 ORDER BY order_number  ";
+    $sql = "SELECT * FROM brands b WHERE b.is_visible = 1 ORDER BY order_number  DESC";
     return pdo_query($sql);
 }
 

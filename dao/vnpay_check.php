@@ -1,12 +1,12 @@
 <?php
 
-function vnpay_check_create($vnpay_TxnRef, $phone, $email, $address, $link, $expired_at, $cart_id)
+function vnpay_check_create($vnpay_TxnRef, $phone, $receiver_name, $address, $link, $expired_at, $cart_id)
 {
     $sql = "INSERT INTO vnpay_check (
-                vnpay_TxnRef, phone, email, address, link, expired_at, order_id, cart_id
+                vnpay_TxnRef, phone, receiver_name, address, link, expired_at, order_id, cart_id
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-    pdo_execute($sql, $vnpay_TxnRef, $phone, $email, $address, $link, $expired_at, null, $cart_id);
+    pdo_execute($sql, $vnpay_TxnRef, $phone, $receiver_name, $address, $link, $expired_at, null, $cart_id);
 }
 
 function get_vnpay_check_by_vnpay_TxnRef($vnpay_TxnRef)
@@ -24,7 +24,7 @@ function updateVnpayCheck($txn_ref, $order_id)
 
 function update_vnp_ResponseCode($txn_ref, $code)
 {
-    $sql = "UPDATE vnpay_check SET vnp_ResponseCode = ? WHERE vnpay_TxnRef = ?";
+    $sql = "UPDATE vnpay_check SET vnpay_ResponseCode = ? WHERE vnpay_TxnRef = ?";
     pdo_execute($sql, $code, $txn_ref);
 }
 

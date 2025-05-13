@@ -1,25 +1,92 @@
 <div id="header-carousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item active" style="height: 242px;">
-            <img class="img-fluid" src="upload/H1_1440x242_31b060c70b.png" alt="Image">
-            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                <div class="p-3" style="max-width: 700px;">
-                    <!-- <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
-                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a> -->
+        <?php
+
+
+        foreach ($slides as $index => $slide) {
+            if ($index === 0) {
+                echo '
+                <div class="carousel-item active">
+                    <a href="' . $slide['link'] . '" class="carousel-link">
+                        <div class="carousel-image-wrapper">
+                            <img class="img-fluid" src="' . IMG_PATH_USER . $slide['image'] . '" alt="Image">
+                        </div>
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <span class="view-now">Xem ngay</span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </div>
-        </div>
-        <div class="carousel-item" style="height: 242px;">
-            <img class="img-fluid" src="upload/H1_1440x242_126dbedd86.png" alt="Image">
-            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                <div class="p-3" style="max-width: 700px;">
-                    <!-- <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3> -->
-                    <!-- <a href="" class="btn btn-light py-2 px-3">Shop Now</a> -->
+                        ';
+            } else {
+                echo '
+                <div class="carousel-item">
+                    <a href="' . $slide['link'] . '" class="carousel-link">
+                        <div class="carousel-image-wrapper">
+                            <img class="img-fluid" src="' . IMG_PATH_USER . $slide['image'] . '" alt="Image">
+                        </div>
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <span class="view-now">Xem ngay</span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </div>
+                        ';
+            }
+        }
+
+        ?>
+
+        <!-- <div class="carousel-item active">
+            <a href="index.php?pg=profile" class="carousel-link">
+                <div class="carousel-image-wrapper">
+                    <img class="img-fluid" src="upload/H1_1440x242_31b060c70b.png" alt="Image">
+                </div>
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                    <div class="p-3" style="max-width: 700px;">
+                        <span class="view-now">Xem ngay</span>
+                    </div>
+                </div>
+            </a>
         </div>
+        <div class="carousel-item">
+            <a href="index.php?pg=profile" class="carousel-link">
+                <div class="carousel-image-wrapper">
+                    <img class="img-fluid" src="upload/H1_1440x242_126dbedd86.png" alt="Image">
+                </div>
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                    <div class="p-3" style="max-width: 700px;">
+                        <span class="view-now">Xem ngay</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a href="index.php?pg=profile" class="carousel-link">
+                <div class="carousel-image-wrapper">
+                    <img class="img-fluid" src="upload/H1_1440x242_31b060c70b.png" alt="Image">
+                </div>
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                    <div class="p-3" style="max-width: 700px;">
+                        <span class="view-now">Xem ngay</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a href="index.php?pg=profile" class="carousel-link">
+                <div class="carousel-image-wrapper">
+                    <img class="img-fluid" src="upload/H1_1440x242_126dbedd86.png" alt="Image">
+                </div>
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                    <div class="p-3" style="max-width: 700px;">
+                        <span class="view-now">Xem ngay</span>
+                    </div>
+                </div>
+            </a>
+        </div> -->
     </div>
     <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
         <div class="btn btn-dark" style="width: 45px; height: 45px;">
@@ -245,3 +312,75 @@
     </div>
 </div>
 <!-- Vendor End -->
+
+<style>
+    /* Đảm bảo carousel-item có vị trí tương đối để định vị văn bản */
+    .carousel-item {
+        position: relative;
+    }
+
+    /* Wrapper để duy trì tỷ lệ khung hình */
+    .carousel-image-wrapper {
+        position: relative;
+        width: 100%;
+        padding-top: 16.8056%;
+        /* Tỷ lệ 242/1440 = 16.8056% */
+        overflow: hidden;
+    }
+
+    .carousel-image-wrapper img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Đảm bảo hình ảnh không bị méo, nhưng có thể bị cắt */
+    }
+
+    /* Định dạng văn bản "Xem ngay" */
+    .view-now {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        border-radius: 5px;
+        z-index: 10;
+    }
+
+    /* Hiển thị văn bản và làm mờ ảnh khi hover */
+    .carousel-link:hover .view-now {
+        display: block;
+    }
+
+    .carousel-link:hover img {
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Responsive cho màn hình nhỏ */
+    @media (max-width: 576px) {
+        .carousel-image-wrapper {
+            padding-top: 50%;
+            /* Tăng tỷ lệ khung hình cho màn hình nhỏ để hiển thị đầy đủ hơn */
+        }
+
+        .view-now {
+            font-size: 16px;
+            /* Giảm kích thước chữ trên màn hình nhỏ */
+            padding: 8px 16px;
+        }
+
+        .carousel-caption .p-3 {
+            max-width: 100%;
+            /* Đảm bảo caption không vượt quá màn hình */
+        }
+    }
+</style>

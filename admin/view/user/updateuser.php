@@ -7,6 +7,13 @@
             ← Quay lại
         </a>
     </div>
+    <?php
+    if (isset($_GET['error']) && $_GET['error'] === 'email') {
+        echo '<div id="alert-message" class="mb-3">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">Lỗi cập nhật người dùng: email đã tồn tại</div>
+    </div>';
+    }
+    ?>
     <form action="index.php?pg=handleupdateuser" method="POST">
         <input type="hidden" name="id" value="<?= $user['id'] ?>">
 
