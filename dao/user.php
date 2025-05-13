@@ -15,10 +15,81 @@ function updateUser($id, $email, $password, $name, $address, $phone, $role)
     pdo_execute($sql, $email, $password, $name, $address, $phone, $role, $id);
 }
 
+// function deleteUserById($id)
+// {
+//     $sql = "DELETE FROM users WHERE id = ?";
+//     pdo_execute($sql, $id);
+// }
+
 function deleteUserById($id)
 {
-    $sql = "DELETE FROM users WHERE id = ?";
-    pdo_execute($sql, $id);
+    $conn = null;
+    try {
+        $conn = pdo_get_connection();
+        // Bắt đầu giao dịch
+        $conn->beginTransaction();
+
+        // 1. Lấy danh sách cart_id của người dùng
+        $sql = "SELECT id FROM carts WHERE user_id = ?";
+        $cart_ids = pdo_query($sql, $id);
+
+        // 2. Xóa dữ liệu liên quan đến giỏ hàng
+        foreach ($cart_ids as $cart) {
+            $cart_id = $cart['id'];
+            // 2.1. Xóa các bản ghi trong cart_detail
+            $sql = "DELETE FROM cart_detail WHERE cart_id = ?";
+            pdo_execute($sql, $cart_id);
+
+            // 2.2. Xóa các bản ghi trong vnpay_check
+            $sql = "DELETE FROM vnpay_check WHERE cart_id = ?";
+            pdo_execute($sql, $cart_id);
+        }
+
+        // 3. Xóa tất cả giỏ hàng của người dùng
+        $sql = "DELETE FROM carts WHERE user_id = ?";
+        pdo_execute($sql, $id);
+
+        // 4. Lấy danh sách order_id của người dùng
+        $sql = "SELECT id FROM orders WHERE user_id = ?";
+        $order_ids = pdo_query($sql, $id);
+
+        // 5. Xóa dữ liệu liên quan đến đơn hàng
+        foreach ($order_ids as $order) {
+            $order_id = $order['id'];
+            // 5.1. Xóa các bản ghi trong order_detail
+            $sql = "DELETE FROM order_detail WHERE order_id = ?";
+            pdo_execute($sql, $order_id);
+        }
+
+        // 6. Xóa tất cả đơn hàng của người dùng
+        $sql = "DELETE FROM orders WHERE user_id = ?";
+        pdo_execute($sql, $id);
+
+        // 7. Xóa tất cả token xác thực của người dùng
+        $sql = "DELETE FROM verify_token WHERE user_id = ?";
+        pdo_execute($sql, $id);
+
+        // 8. Xóa bản ghi trong users
+        $sql = "DELETE FROM users WHERE id = ?";
+        pdo_execute($sql, $id);
+
+        // Kết thúc giao dịch
+        $conn->commit();
+        return true;
+    } catch (Exception $e) {
+        // Hoàn tác giao dịch nếu có lỗi
+        if ($conn) {
+            $conn->rollBack();
+        }
+        // Lưu thông báo lỗi
+        $_SESSION['error'] = $e->getMessage();
+        return false;
+    } finally {
+        // Đóng kết nối
+        if ($conn) {
+            unset($conn);
+        }
+    }
 }
 
 function getUserById($id)

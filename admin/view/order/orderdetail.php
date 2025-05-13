@@ -11,7 +11,8 @@
     <h4 style="color: rgb(60, 102, 215);">Thông tin đơn hàng</h4>
     <div class="row">
         <div class="col-md-6">
-            <p><strong>ID:</strong> <?= $order['id'] ?></p>
+            <p><strong>Mã đơn hàng (ID):</strong> <?= $order['id'] ?></p>
+            <p><strong>Mã tài khoản người dùng đặt hàng (ID):</strong> <?= $order['user_id'] ?></p>
             <p><strong>Tổng giá:</strong> <?= number_format($order['total_price']) ?> VNĐ</p>
             <p><strong>Số điện thoại:</strong> <?= ($order['phone']) ?></p>
             <p><strong>Tên người nhận:</strong> <?= ($order['receiver_name']) ?></p>

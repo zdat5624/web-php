@@ -1,5 +1,6 @@
 <?php
-
+require_once "cart.php";
+require_once "pdo.php";
 function getAllProducts()
 {
     $sql = "SELECT p.*, b.name as brand_name, c.name as category_name 
@@ -58,10 +59,62 @@ function getBestSellingProducts($limit = 8)
     return pdo_query($sql);
 }
 
+// function deleteProductById($id)
+// {
+//     $sql = "DELETE FROM products WHERE id = ?";
+//     pdo_execute($sql, $id);
+// }
+
 function deleteProductById($id)
 {
-    $sql = "DELETE FROM products WHERE id = ?";
-    pdo_execute($sql, $id);
+    $conn = null; // Khởi tạo biến kết nối
+    try {
+        $conn = pdo_get_connection();
+        // Bắt đầu giao dịch
+        $conn->beginTransaction();
+
+        // 1. Lấy danh sách cart_id bị ảnh hưởng
+        $sql = "SELECT DISTINCT cart_id FROM cart_detail WHERE product_id = ?";
+        $cart_ids = pdo_query($sql, $id);
+
+        // 2. Xóa các bản ghi trong cart_detail
+        $sql = "DELETE FROM cart_detail WHERE product_id = ?";
+        pdo_execute($sql, $id);
+
+        // 3. Xóa các bản ghi trong order_detail
+        $sql = "DELETE FROM order_detail WHERE product_id = ?";
+        pdo_execute($sql, $id);
+
+        // 4. Xóa các bản ghi vnpay_check liên quan
+        $sql = "DELETE FROM vnpay_check WHERE cart_id IN (SELECT cart_id FROM cart_detail WHERE product_id = ?)";
+        pdo_execute($sql, $id);
+
+        // 5. Xóa bản ghi trong products
+        $sql = "DELETE FROM products WHERE id = ?";
+        pdo_execute($sql, $id);
+
+        // 6. Cập nhật total_price cho các giỏ hàng bị ảnh hưởng
+        foreach ($cart_ids as $cart) {
+            updateCartTotalPrice($cart['cart_id']);
+        }
+
+        // Kết thúc giao dịch
+        $conn->commit();
+        return true;
+    } catch (Exception $e) {
+        // Hoàn tác giao dịch nếu có lỗi
+        if ($conn) {
+            $conn->rollBack();
+        }
+        // Lưu thông báo lỗi để xử lý
+        $_SESSION['error'] = $e->getMessage();
+        return false;
+    } finally {
+        // Đóng kết nối
+        if ($conn) {
+            unset($conn);
+        }
+    }
 }
 
 function getProductsWithFilters($pageSize, $offset, $brand_id = null, $category_id = null, $sort = 'id', $order = 'DESC')

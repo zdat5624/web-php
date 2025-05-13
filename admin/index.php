@@ -520,13 +520,13 @@ if (!isset($_GET['pg'])) {
                 if ($product) {
                     $image_path = IMG_PATH_ADMIN . $product['image'];
                     if (file_exists($image_path)) {
-                        unlink($image_path);
+                        // unlink($image_path);
                     }
                     deleteProductById($id);
                 }
             }
-            $products = getAllProducts();
-            include "view/product/products.php";
+            header("Location: index.php?pg=products");
+            exit();
             break;
 
         case 'updateproduct':
