@@ -25,10 +25,15 @@
             </div>
         </div>
 
-        <div class="col-lg-7 pb-5 mt-3">
+        <div class="col-lg-7 pb-5 mt-5">
             <h3 class="font-weight-semi-bold mb-4"><?= $product['name'] ?></h3>
-            <h3 class="font-weight-semi-bold mb-4"><?= number_format($product['price']) ?> VNĐ</h3>
-            <p class="mb-5"><?= $product['short_desc'] ?></p>
+
+            <p class=""><?= $product['short_desc'] ?></p>
+
+            <h3 class="font-weight-semi-bold mb-3"><?= number_format($product['price']) ?> VNĐ</h3>
+
+            <p class=""><span class="font-weight-semi-bold">Thương hiệu:</span> <?= $product['brand_name'] ?></p>
+            <p class="mb-5"><span class="font-weight-semi-bold">Danh mục:</span> <?= $product['category_name'] ?></p>
             <div class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 130px;">
                     <div class="input-group-btn">

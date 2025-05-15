@@ -212,9 +212,11 @@ if (!isset($_GET['pg'])) {
 
 
         default:
+            $page_title = 'Trang chủ | XLaptopshop';
             $newProducts = getNewProducts();
             $bestSellingProducts = getBestSellingProducts();
             $brands = getAllBrandsForUser();
+            $slides = getAllSlidesForUser();
             include "view/home.php";
             break;
     }
