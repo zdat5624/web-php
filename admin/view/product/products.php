@@ -183,7 +183,7 @@
                 } else {
                     foreach ($products as $product) {
                         echo '<tr>
-                                <td>' . $product['id'] . '</td>
+                                <td><a href="../index.php?pg=productdetail&id=' . $product['id'] . '" target="_blank">' . $product['id'] . '</a></td>
                                 <td>' . $product['name'] . '</td>
                                 <td class="text-center">
                                     <img src="' . IMG_PATH_ADMIN . $product['image'] . '"

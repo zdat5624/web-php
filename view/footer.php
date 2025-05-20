@@ -473,7 +473,7 @@
                         updateCartCount();
 
                     } else if (response.status === 'warning') {
-                        showToast(response.message, type = 'warning');
+                        showToast(response.message, type = 'warning', 2000);
                     } else {
 
                         if (response.message.includes('đăng nhập')) {
@@ -849,7 +849,7 @@
 </script>
 
 <script>
-    function showToast(message, type = 'success') {
+    function showToast(message, type = 'success', delay = 1000) {
         if ($('#toast-container .toast').length >= 1) {
             $('#toast-container .toast').first().remove();
         }
@@ -877,7 +877,7 @@
         }
 
         let toastHtml = `
-        <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="750">
+        <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="${delay}">
             <div class="toast-header">
                 <strong class="mr-auto ${typeClass}">${title}</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">

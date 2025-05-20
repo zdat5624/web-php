@@ -16,7 +16,7 @@
                 <li class="list-group-item <?= $_GET['pg'] === 'profile' ? 'active' : ''; ?>">
                     <a href="index.php?pg=orders" class="text-decoration-none <?= $current_page === 'profile' ? 'text-white' : 'text-dark'; ?>">Thông tin cá nhân</a>
                 </li>
-                <li class="list-group-item <?php echo $current_page === 'change_password' ? 'active' : ''; ?>">
+                <li class="list-group-item <?= $_GET['pg'] ===  'change_password' ? 'active' : ''; ?>">
                     <a href="index.php?pg=change_password" class="text-decoration-none <?php echo $current_page === 'change_password' ? 'text-white' : 'text-dark'; ?>">Đổi mật khẩu</a>
                 </li>
 

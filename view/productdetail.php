@@ -53,19 +53,21 @@
         </div>
     </div>
 
-    <div class="description-section px-xl-5">
-        <h4 class="font-weight-semi-bold mb-3">Mô tả chi tiết sản phẩm</h4>
-        <div class="description-content">
-            <div class="short-desc" style="max-height: 200px; overflow: hidden; position: relative;">
-                <?= $product['detail_desc'] ?>
-                <div class="fade-overlay"></div> <!-- Lớp gradient mờ -->
+    <div class="container">
+        <div class="description-section px-xl-5">
+            <h4 class="font-weight-semi-bold mb-3 text-center text-primary">- Mô tả chi tiết sản phẩm -</h4>
+            <div class="description-content">
+                <div class="short-desc" style="max-height: 200px; overflow: hidden; position: relative;">
+                    <?= $product['detail_desc'] ?>
+                    <div class="fade-overlay"></div> <!-- Lớp gradient mờ -->
+                </div>
+                <div class="full-desc" style="display: none;">
+                    <?= $product['detail_desc'] ?>
+                </div>
             </div>
-            <div class="full-desc" style="display: none;">
-                <?= $product['detail_desc'] ?>
+            <div class="text-center">
+                <button class="btn btn-link read-more-btn font-weight-bold"> Xem thêm ↓</button>
             </div>
-        </div>
-        <div class="text-center">
-            <button class="btn btn-link read-more-btn font-weight-bold"> Xem thêm ↓</button>
         </div>
     </div>
 </div>

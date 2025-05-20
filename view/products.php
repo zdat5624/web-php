@@ -181,7 +181,7 @@
                             <div id="searchTag" class="mt-3" style="display: <?= $keyword ? 'block' : 'none' ?>;">
                                 <div class="d-inline-flex align-items-center px-3 py-2  rounded-pill shadow-sm border">
                                     <span class="text-dark mr-2">
-                                        Từ khóa: '<span id="keywordText" class="font-italic"><?= $keyword ?></span>'
+                                        Từ khóa: <span id="keywordText" class="font-italic"><?= $keyword ?></span>
                                     </span>
                                     <a href="index.php?pg=products&brand=<?= $brand_id ?>&category=<?= $category_id ?>&price=<?= $price_range ?>&sort=<?= $sort ?>"
                                         class="ml-3 btn btn-sm btn-light p-0 d-flex align-items-center justify-content-center rounded-circle border"

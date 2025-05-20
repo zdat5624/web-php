@@ -125,7 +125,25 @@ if (empty($receiver_name_value) && isset($_SESSION['user'])) {
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <div class="custom-control custom-radio mb-4">
+                            <?php
+                            $is_hide = false;
+                            $user_id = $_SESSION['user']['id'];
+                            // Kiểm tra giỏ hàng của người dùng
+                            $cart = getCartByUserId($user_id);
+                            if (!$cart) {
+                                $cart = createCart($user_id);
+                            }
+                            $sql = "SELECT * FROM vnpay_check WHERE cart_id = ? AND vnpay_ResponseCode IS NULL ORDER BY id DESC";
+                            $vnpay_check = pdo_query_one($sql, $cart['id']);
+                            if ($vnpay_check) {
+                                $expired_at = new DateTime($vnpay_check['expired_at'], new DateTimeZone('Asia/Ho_Chi_Minh'));
+                                $now = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+                                if ($expired_at > $now) {
+                                    $is_hide = true;
+                                }
+                            }
+                            ?>
+                            <div class="custom-control custom-radio mb-4" <?= $is_hide ? 'style="display: none;"' : '' ?>>
                                 <input type="radio" class="custom-control-input" name="payment" id="cod" value="cod" required>
                                 <label class="custom-control-label-checkout custom-control-label d-flex align-items-center" for="cod">
                                     <i class="fas fa-money-bill-wave me-2"></i>

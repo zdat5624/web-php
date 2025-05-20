@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once '../pdo.php'; // Đường dẫn đến file pdo.php
-require_once '../user.php';  // Đường dẫn đến file user.php
+require_once '../pdo.php';
+require_once '../user.php';
 
 // Kiểm tra đăng nhập
 if (!isset($_SESSION['user'])) {

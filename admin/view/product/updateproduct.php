@@ -20,7 +20,8 @@
 
         <div class="mb-3">
             <label class="form-label">Mô tả ngắn</label>
-            <textarea name="short_desc" class="form-control" required><?= $product['short_desc'] ?></textarea>
+            <!-- <textarea name="short_desc" class="form-control" required></textarea> -->
+            <input type="text" name="short_desc" class="form-control" value="<?= $product['short_desc'] ?>" required>
         </div>
 
         <div class="mb-3">

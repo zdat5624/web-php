@@ -25,6 +25,12 @@ if (!isset($_GET['pg'])) {
         case  'register':
             $page_title = 'Đăng ký  | XLaptopshop';
             break;
+        case  'forgot_password':
+            $page_title = 'Quên mật khẩu  | XLaptopshop';
+            break;
+        default:
+            $page_title = 'XLaptopshop';
+            break;
     }
 }
 

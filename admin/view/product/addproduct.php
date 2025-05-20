@@ -18,7 +18,7 @@
 
         <div class="mb-3">
             <label class="form-label">Mô tả ngắn</label>
-            <textarea name="short_desc" class="form-control" required></textarea>
+            <input type="text" name="short_desc" class="form-control" required>
         </div>
 
         <div class="mb-3">
@@ -26,12 +26,12 @@
             <textarea name="detail_desc" id="detail_desc" class="form-control" style="height: 500px;"></textarea>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3" style="display: none;">
             <label class="form-label">Lượt xem</label>
             <input type="number" name="view" class="form-control" value="0">
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3" style="display: none;">
             <label class="form-label">Lượt bán</label>
             <input type="number" name="sold" class="form-control" value="0">
         </div>
